@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Vacina.belongsTo(models.Animal);
+      Vacina.belongsTo(models.VacinaAnimal);
     }
   }
   Vacina.init({
     nome: DataTypes.STRING,
-    data: DataTypes.DATEONLY
+    laboratorio: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Vacina',

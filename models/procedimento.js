@@ -10,12 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Procedimento.belongsTo(models.Animal);
+      Procedimento.belongsTo(models.ProcedimentoAnimal);
     }
   }
   Procedimento.init({
-    nome: DataTypes.STRING,
-    data: DataTypes.DATEONLY
+    nome: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Procedimento',

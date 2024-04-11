@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Vacinas', {
+    await queryInterface.createTable('Procedimentos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,9 +11,6 @@ module.exports = {
       },
       nome: {
         type: Sequelize.STRING
-      },
-      data: {
-        type: Sequelize.DATEONLY
       },
       createdAt: {
         allowNull: false,
@@ -26,6 +23,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Vacinas');
+    await queryInterface.dropTable('Procedimentos');
   }
 };

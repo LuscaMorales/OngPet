@@ -2,45 +2,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Animals', {
+    await queryInterface.createTable('VacinaAnimals', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nome: {
-        type: Sequelize.STRING
+      data: {
+        type: Sequelize.DATEONLY
       },
-      raca: {
-        type: Sequelize.STRING
-      },
-      dataChegada: {
-        type: Sequelize.STRING
-      },
-      nascimento: {
-        type: Sequelize.STRING
-      },
-      idVacina: {
-        allowNull: true,
+      idAnimal: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'Vacinas',
+            tableName: 'animals',
             key: 'id'
           },
         },
         onUpdate:'cascade',
         onDelete:'cascade'
       },
-      idProcedimento: {
-        allowNull: true,
+      idVacina: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'Procedimentos'
+            tableName: 'vacinas',
+            key: 'id'
           },
-          key: 'id'
         },
         onUpdate:'cascade',
         onDelete:'cascade'
@@ -56,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Animals');
+    await queryInterface.dropTable('VacinaAnimals');
   }
 };
