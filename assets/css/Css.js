@@ -44,6 +44,13 @@ const css = StyleSheet.create({
       fontWeight: "bold",
       fontSize: 22,
       color: "#333"
+    },
+    HeaderAR:{
+      fontSize: 20,
+      fontWeight: "bold",
+      color: "white",
+      marginBottom: 15,
+      marginTop: 30 
     }
 });
 
