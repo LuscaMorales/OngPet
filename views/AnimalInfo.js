@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
 
-export default function ConsultaAnimal ({navigation})
+export default function AnimalInfo ({navigation})
 {
 
     const[id, setId] = useState(null);    
@@ -31,7 +31,7 @@ export default function ConsultaAnimal ({navigation})
             </View>
             <View style={css.login_form}>
                 <TextInput style={css.login_input} placeholder="Digite o Id do animal" onChangeText={text=>setId(text)}/>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('AnimalInfo')}>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm()}>
                     <Text style={css.login_buttomText}>Enviar</Text>
                 </TouchableOpacity>
             </View>
@@ -39,4 +39,4 @@ export default function ConsultaAnimal ({navigation})
     )
 }
 
-export {ConsultaAnimal}
+export {AnimalInfo}

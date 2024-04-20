@@ -29,6 +29,10 @@ export default function Login ({navigation})
             setTimeout(()=>{
                 setDisplay('none');
             }, 5000);
+          }else if(json.power === 3){
+            navigation.navigate('AreaRestrita');
+          }else{
+            navigation.navigate('AreaFuncionario')
           }
         }
     
@@ -42,11 +46,8 @@ export default function Login ({navigation})
             <View style={css.login_form}>
                 <TextInput style={css.login_input} placeholder="Usuário" onChangeText={text=>setUser(text)}/>
                 <TextInput style={css.login_input} placeholder="senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('AreaRestrita')}>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm()}>
                     <Text style={css.login_buttomText}>Entrar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('AreaFuncionario')}>
-                    <Text style={css.login_buttomText}>Entrar Funcionario</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('ConsultaAnimal')}>
                     <Text style={css.login_buttomText}>Entrar Geral</Text>

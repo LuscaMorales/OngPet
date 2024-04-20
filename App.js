@@ -8,6 +8,7 @@ import AreaRestrita from './views/AreaRestrita';
 import CadastroAnimal from './views/CadastroAnimal';
 import ConsultaAnimal from './views/ConsultaAnimal';
 import AreaFuncionario from './views/AreaFuncionario';
+import AnimalInfo from './views/AnimalInfo';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name="CadastroAnimal" component={CadastroAnimal} />
         <Stack.Screen name="ConsultaAnimal" component={ConsultaAnimal} />
         <Stack.Screen name="AreaFuncionario" component={AreaFuncionario} />
+        <Stack.Screen name="AnimalInfo" component={AnimalInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   );

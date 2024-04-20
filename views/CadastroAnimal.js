@@ -9,28 +9,23 @@ export default function CadastroAnimal ({navigation})
     const[nascimento, setNascimento] = useState(null);
     const[chegada, setChegada] = useState(null);
     const[raca, setRaca] = useState(null);
-    
+    //const dia = chegada.substring(0,2);
 
     //envio form de login
-    async function sendForm(){
-        let response=await fetch('http://192.168.1.15:3000/cadastroUser',{
+    async function sendForm3(){
+        let response=await fetch('http://192.168.1.15:3000/cadastroAnimal',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: user,
-                password: password
+                nome: name,
+                raca: raca,
+                dataChegada: chegada,
+                nascimento: nascimento,
             }),
           });
-          let json=await response.json();
-          if(json === 'failed'){
-            setDisplay('flex');
-            setTimeout(()=>{
-                setDisplay('none');
-            }, 5000);
-          }
         }
     
 
@@ -38,14 +33,14 @@ export default function CadastroAnimal ({navigation})
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
                 <Text style={css.loginHeader}>Cadastre o animal</Text>
-                <Text>{name} - {raca} - {nascimento} - {chegada}</Text>
+                <Text>{name} - {raca} - {nascimento} -{chegada} </Text>
             </View>
             <View style={css.login_form}>
                 <TextInput style={css.login_input} placeholder="Nome" onChangeText={text=>setName(text)}/>
                 <TextInput style={css.login_input} placeholder="Raça" onChangeText={text=>setRaca(text)}/>
                 <TextInput style={css.login_input} placeholder="Data de Nascimento" onChangeText={text=>setNascimento(text)}/>
                 <TextInput style={css.login_input} placeholder="Data da Chegada" onChangeText={text=>setChegada(text)}/>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm()}>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm3()}>
                     <Text style={css.login_buttomText}>Enviar</Text>
                 </TouchableOpacity>
             </View>

@@ -11,7 +11,7 @@ export default function AreaRestrita ({navigation})
     const[login, setLogin] = useState(null);
 
     //envio form de login
-    async function sendForm(){
+    async function sendForm2(){
         let response=await fetch('http://192.168.1.15:3000/cadastroUser',{
             method: 'POST',
             headers: {
@@ -21,11 +21,11 @@ export default function AreaRestrita ({navigation})
             body: JSON.stringify({
                 username: user,
                 password: password,
-                power: power
+                power: power,
+                createdAt: new Date(),
+                updatedAt: new Date()
             }),
           });
-          let json=await response.json();
-          //if(json === 'failed')
         }
     
 
@@ -37,7 +37,7 @@ export default function AreaRestrita ({navigation})
                 <TextInput style={css.login_input} placeholder="Username" onChangeText={text=>setUser(text)}/>
                 <TextInput style={css.login_input} placeholder="Senha" onChangeText={text=>setPassword(text)}/>
                 <TextInput style={css.login_input} placeholder="Poder" onChangeText={text=>setPower(text)}/>
-                <TouchableOpacity style={css.login_buttom}>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm2()}>
                     <Text style={css.login_buttomText}>Enviar</Text>
                 </TouchableOpacity>
             </View>
