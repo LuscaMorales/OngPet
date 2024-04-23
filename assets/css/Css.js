@@ -40,6 +40,13 @@ const css = StyleSheet.create({
       alignSelf: "center",
       borderRadius: 5
     },
+    login_buttomGeral:{
+      padding: 12,
+      marginTop: 30,
+      backgroundColor: "#63C1E0",
+      alignSelf: "center",
+      borderRadius: 5
+    },
     login_buttonText:{
       fontWeight: "bold",
       fontSize: 22,
@@ -51,7 +58,13 @@ const css = StyleSheet.create({
       color: "white",
       marginBottom: 15,
       marginTop: 30 
-    }
+    },
+    DadosText:{
+      alignSelf:"center",
+      fontSize: 20,
+      marginBottom:20,
+      color: 'white'
+    },
 });
 
 export {css};

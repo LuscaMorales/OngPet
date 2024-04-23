@@ -16,6 +16,7 @@ let procedimento=models.Procedimento;
 
 
 let port=process.env.PORT || 3000;
+const id = 1;
 
 function formatData(stringDate){
   let dia = stringDate.substring(0,3);
@@ -24,6 +25,7 @@ function formatData(stringDate){
   let dateOK = mes + dia + ano;
   return dateOK;
 }
+
 
 app.listen(port, ()=>{
     console.log('Example app listening on port 3000');
@@ -59,5 +61,14 @@ app.post('/cadastroAnimal', async (req,res)=>{
     createdAt: new Date(),
     updatedAt: new Date()
   });
+  res.send(create);
 });
 
+app.post('/ConsultaAnimal', async (req,res)=>{
+  let read=await animal.findByPk(req.body.IDAnimal);
+  if(read === null){
+    res.send(JSON.stringify('failed'));
+  }else{
+    res.send(read);
+  }
+});

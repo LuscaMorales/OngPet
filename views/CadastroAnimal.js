@@ -9,7 +9,8 @@ export default function CadastroAnimal ({navigation})
     const[nascimento, setNascimento] = useState(null);
     const[chegada, setChegada] = useState(null);
     const[raca, setRaca] = useState(null);
-    //const dia = chegada.substring(0,2);
+    const[id, setId] = useState(null);
+    const [display, setDisplay]=useState('none')
 
     //envio form de login
     async function sendForm3(){
@@ -26,6 +27,13 @@ export default function CadastroAnimal ({navigation})
                 nascimento: nascimento,
             }),
           });
+          let json = await response.json();
+          if(json == null){
+            console.log("deu erro");
+          }else{
+            setId(json.id)
+            setDisplay('flex');
+          }
         }
     
 
@@ -33,7 +41,7 @@ export default function CadastroAnimal ({navigation})
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
                 <Text style={css.loginHeader}>Cadastre o animal</Text>
-                <Text>{name} - {raca} - {nascimento} -{chegada} </Text>
+                <Text style={css.login_error(display)}> O Id do {name} será {id}</Text>
             </View>
             <View style={css.login_form}>
                 <TextInput style={css.login_input} placeholder="Nome" onChangeText={text=>setName(text)}/>

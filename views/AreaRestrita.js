@@ -33,7 +33,6 @@ export default function AreaRestrita ({navigation})
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
                 <Text style={css.HeaderAR}>Cadastro de Usuarios</Text>
-                <Text>{user} - {password} - {power}</Text>
                 <TextInput style={css.login_input} placeholder="Username" onChangeText={text=>setUser(text)}/>
                 <TextInput style={css.login_input} placeholder="Senha" onChangeText={text=>setPassword(text)}/>
                 <TextInput style={css.login_input} placeholder="Poder" onChangeText={text=>setPower(text)}/>

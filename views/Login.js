@@ -45,12 +45,12 @@ export default function Login ({navigation})
             </View>
             <View style={css.login_form}>
                 <TextInput style={css.login_input} placeholder="Usuário" onChangeText={text=>setUser(text)}/>
-                <TextInput style={css.login_input} placeholder="senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
+                <TextInput style={css.login_input} placeholder="Senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
                 <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm()}>
                     <Text style={css.login_buttomText}>Entrar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('ConsultaAnimal')}>
-                    <Text style={css.login_buttomText}>Entrar Geral</Text>
+                <TouchableOpacity style={css.login_buttomGeral} onPress={()=>navigation.navigate('ConsultaAnimal')}>
+                    <Text style={css.login_buttomText}>Acesso Geral</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
