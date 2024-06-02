@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       ProcedimentoAnimal.belongsTo(models.Animal);
-      ProcedimentoAnimal.hasOne(models.Procedimento);
+     // ProcedimentoAnimal.hasOne(models.Procedimento);
     }
   }
   ProcedimentoAnimal.init({

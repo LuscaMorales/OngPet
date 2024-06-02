@@ -51,6 +51,18 @@ export default function AreaRestrita ({navigation})
                 </TouchableOpacity>
             </View>
             <View>
+            <Text style={css.HeaderAR}>Cadastro de Consulta</Text>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroProced')}>
+                    <Text style={css.login_buttomText}>Entrar</Text>
+                </TouchableOpacity>
+            </View>
+            <View>
+            <Text style={css.HeaderAR}>Cadastro de vacina</Text>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroVacina')}>
+                    <Text style={css.login_buttomText}>Entrar</Text>
+                </TouchableOpacity>
+            </View>
+            <View>
 
             </View>
         </KeyboardAvoidingView>

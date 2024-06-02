@@ -8,11 +8,13 @@ module.exports = (sequelize, DataTypes) => {
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
-     */
+     
+    */
     static associate(models) {
       VacinaAnimal.belongsTo(models.Animal);
-      VacinaAnimal.hasOne(models.Vacina);
+     // VacinaAnimal.hasOne(models.Vacina);
     }
+    
   }
   VacinaAnimal.init({
     data: DataTypes.DATEONLY,

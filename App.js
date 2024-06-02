@@ -9,6 +9,8 @@ import CadastroAnimal from './views/CadastroAnimal';
 import ConsultaAnimal from './views/ConsultaAnimal';
 import AreaFuncionario from './views/AreaFuncionario';
 import AnimalInfo from './views/AnimalInfo';
+import CadastroVacina from './views/CadastroVacina';
+import CadastroProced from './views/CadastroProced';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +24,8 @@ export default function App() {
         <Stack.Screen name="ConsultaAnimal" component={ConsultaAnimal} />
         <Stack.Screen name="AreaFuncionario" component={AreaFuncionario} />
         <Stack.Screen name="AnimalInfo" component={AnimalInfo} />
+        <Stack.Screen name="CadastroVacina" component={CadastroVacina} />
+        <Stack.Screen name="CadastroProced" component={CadastroProced} />
       </Stack.Navigator>
     </NavigationContainer>
   );

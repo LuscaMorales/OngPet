@@ -13,6 +13,8 @@ let user=models.User;
 let vacina=models.Vacina;
 let animal=models.Animal;
 let procedimento=models.Procedimento;
+let vacAni = models.VacinaAnimal;
+let procedAni = models.ProcedimentoAnimal;
 
 
 let port=process.env.PORT || 3000;
@@ -71,4 +73,56 @@ app.post('/ConsultaAnimal', async (req,res)=>{
   }else{
     res.send(read);
   }
+});
+
+app.post('/cadastroProced', async (req,res)=>{
+  let verif = await procedimento.findOne({
+    where:{nome:req.body.proced}
+  });
+  if(verif === null){
+    console.log("criando um novo");
+    let criaProced = await procedimento.create({
+      nome:req.body.proced 
+    });
+    let criaProcedAni = await procedAni.create({
+      data:new Date(formatData(req.body.data)),
+      idProcedimento:criaProced.id,
+      idAnimal:req.body.id
+    });
+
+  }else{
+    console.log("achado um existente");
+    console.log(verif.id);
+    let criaProcedAni = await procedAni.create({
+      data:new Date(formatData(req.body.data)),
+      idProcedimento:verif.id,
+      idAnimal:req.body.id
+    });
+  }
+ // res.send(criaProcedAni);
+});
+
+app.post('/cadastroVacina', async (req,res)=>{
+  let verifVac = await vacina.findOne({
+    where:{nome:req.body.vacina}
+  });
+  if(verifVac === null){
+    let criaVac = await vacina.create({
+      nome:req.body.vacina,
+      laboratorio:req.body.lab
+    });
+    let criaVacAni = await vacAni.create({
+      data:new Date(formatData(req.body.data)),
+      idAnimal:req.body.id,
+      idVacina:criaVac.id
+    });
+  }else{
+    console.log("achei");
+    let criaVacAni = await vacAni.create({
+      data:new Date(formatData(req.body.data)),
+      idAnimal:req.body.id,
+      idVacina:req.body.vacina
+    });
+  }
+ // res.send(criaVacAni);  
 });

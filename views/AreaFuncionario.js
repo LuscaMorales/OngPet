@@ -43,6 +43,18 @@ export default function AreaFuncionario ({navigation})
                     <Text style={css.login_buttomText}>Entrar</Text>
                 </TouchableOpacity>
             </View>
+            <View>
+            <Text style={css.HeaderAR}>Cadastro de Consulta</Text>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroProced')}>
+                    <Text style={css.login_buttomText}>Entrar</Text>
+                </TouchableOpacity>
+            </View>
+            <View>
+            <Text style={css.HeaderAR}>Cadastro de vacina</Text>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroVacina')}>
+                    <Text style={css.login_buttomText}>Entrar</Text>
+                </TouchableOpacity>
+            </View>
         </KeyboardAvoidingView>
     )
 }
