@@ -53,7 +53,7 @@ const css = StyleSheet.create({
       color: "#333"
     },
     HeaderAR:{
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: "bold",
       color: "white",
       marginBottom: 15,

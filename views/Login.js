@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
+import {KeyboardAvoidingView, ScrollView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
 
 export default function Login ({navigation})

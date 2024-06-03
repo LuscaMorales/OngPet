@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
+import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform, ScrollView } from "react-native";
 import { css } from "../assets/css/Css";
 
 export default function AreaRestrita ({navigation})
@@ -30,6 +30,7 @@ export default function AreaRestrita ({navigation})
     
 
     return(
+        <ScrollView>
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
                 <Text style={css.HeaderAR}>Cadastro de Usuarios</Text>
@@ -66,6 +67,7 @@ export default function AreaRestrita ({navigation})
 
             </View>
         </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 

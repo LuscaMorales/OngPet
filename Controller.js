@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const models=require('./models');
 const { raw } = require('mysql2');
 const { where } = require('sequelize');
+const { QueryTypes } = require('sequelize');
+const sequelize = require('sequelize');
 
 const app = express()
 app.use(cors());
@@ -75,6 +77,30 @@ app.post('/ConsultaAnimal', async (req,res)=>{
   }
 });
 
+app.post('/ConsultaVac', async (req,res)=>{
+  let verifVac=await vacAni.findOne({
+    where:{idAnimal:req.body.IDAnimal}
+  });
+  if(verifVac === null){
+    res.send(JSON.stringify('null'));
+  }else{
+    let vac = await vacina.findByPk(verifVac.idVacina);
+    res.send(vac);
+  }
+});
+
+app.post('/ConsultaProced', async (req,res)=>{
+  let verifProced=await procedAni.findOne({
+    where:{idAnimal:req.body.IDAnimal}
+  });
+  if(verifProced === null){
+    res.send(JSON.stringify('null'));
+  }else{
+    let proced = await procedimento.findByPk(verifProced.idProcedimento);
+    res.send(proced);
+  }
+});
+
 app.post('/cadastroProced', async (req,res)=>{
   let verif = await procedimento.findOne({
     where:{nome:req.body.proced}
@@ -125,4 +151,17 @@ app.post('/cadastroVacina', async (req,res)=>{
     });
   }
  // res.send(criaVacAni);  
+});
+
+
+app.get('/consultaMac', async (req,res)=>{
+  let verifProced=await procedAni.findOne({
+    where:{idAnimal:13}
+  });
+  if(verifProced === null){
+    res.send(JSON.stringify('Ainda não existe cadastro'));
+  }else{
+    let proced = await procedimento.findByPk(verifProced.idProcedimento);
+    res.send(proced);
+  }
 });
