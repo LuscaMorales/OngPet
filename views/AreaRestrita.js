@@ -12,7 +12,7 @@ export default function AreaRestrita ({navigation})
 
     //envio form de login
     async function sendForm2(){
-        let response=await fetch('http://192.168.1.15:3000/cadastroUser',{
+        let response=await fetch('http://localhost:3000/cadastroUser',{
             method: 'POST',
             headers: {
               Accept: 'application/json',

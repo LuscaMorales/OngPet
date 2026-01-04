@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
+    "username": "devlusca",
+  "password": "123456",
     "database": "ongpet",
     "host": "127.0.0.1",
     "dialect": "mysql"

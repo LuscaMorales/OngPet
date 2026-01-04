@@ -11,7 +11,7 @@ export default function ConsultaAnimal ({navigation})
 
 
     async function sendForm(){
-        let response=await fetch('http://192.168.1.15:3000/ConsultaAnimal',{
+        let response=await fetch('http://localhost:3000/ConsultaAnimal',{
             method: 'POST',
             headers: {
               Accept: 'application/json',

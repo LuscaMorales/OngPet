@@ -1,4 +1,4 @@
-# 🐾 Sistema de Cadastro de Animais Resgatados Att 2026
+# 🐾 Sistema de Cadastro de Animais Resgatados
 
 Este é um sistema de gerenciamento e controle de dados de animais resgatados, com funcionalidades para cadastro de informações como nome, datas importantes (chegada e nascimento), consultas veterinárias e controle vacinal.
 

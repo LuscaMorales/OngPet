@@ -32,7 +32,7 @@ export default function AnimalInfo ({route, navigation})
             setNascimento(json.nascimento);
             setDataChegada(json.dataChegada)});
 
-    const getProced = fetch('http://192.168.1.15:3000/ConsultaProced',{
+    const getProced = fetch('http://localhost:3000/ConsultaProced',{
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -51,7 +51,7 @@ export default function AnimalInfo ({route, navigation})
         }
         });
 
-    const getVacina = fetch('http://192.168.1.15:3000/ConsultaVac',{
+    const getVacina = fetch('http://localhost:3000/ConsultaVac',{
         method: 'POST',
         headers: {
           Accept: 'application/json',

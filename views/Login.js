@@ -12,7 +12,7 @@ export default function Login ({navigation})
 
     //envio form de login
     async function sendForm(){
-        let response=await fetch('http://192.168.1.15:3000/login',{
+        let response=await fetch('http://localhost:3000/login',{
             method: 'POST',
             headers: {
               Accept: 'application/json',

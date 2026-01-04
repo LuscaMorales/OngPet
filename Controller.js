@@ -32,10 +32,11 @@ function formatData(stringDate){
 
 
 app.listen(port, ()=>{
-    console.log('Example app listening on port 3000');
+    console.log('Exa67mple app listening on port 3000');
 });
 
 app.post('/login', async (req,res)=>{
+  console.log("botao pressionado");
   let response= await user.findOne({
     where:{username:req.body.username, password: req.body.password}
   });
