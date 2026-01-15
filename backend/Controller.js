@@ -32,11 +32,10 @@ function formatData(stringDate){
 
 
 app.listen(port, ()=>{
-    console.log('Exa67mple app listening on port 3000');
+    console.log('Example app listening on port 3000');
 });
 
 app.post('/login', async (req,res)=>{
-  console.log("botao pressionado");
   let response= await user.findOne({
     where:{username:req.body.username, password: req.body.password}
   });
@@ -58,23 +57,37 @@ app.post('/cadastroUser', async (req,res)=>{
 });
 
 app.post('/cadastroAnimal', async (req,res)=>{
-  let create=await animal.create({
+  try {
+    let animalCreated = await animal.create({
     nome:req.body.nome,
     raca:req.body.raca,
     dataChegada: new Date(formatData(req.body.dataChegada)),
     nascimento: new Date(formatData(req.body.nascimento)),
     createdAt: new Date(),
     updatedAt: new Date()
+    });
+    res.status(201).json(animalCreated);
+  }catch (error) {
+    res.status(500).json({ error: 'Error adding animal' });
+  }
+});
+
+app.get('/AnimalCompleto/:id', async (req,res)=>{
+  const animalData = await animal.findByPk(req.params.id, {
+    include: [vacAni, procedAni],
   });
-  res.send(create);
+  if (!animalData) {
+    return res.status(404).json({ error: "Animal não encontrado"});
+  }
+  res.status(201).json(animalData);
 });
 
 app.post('/ConsultaAnimal', async (req,res)=>{
-  let read=await animal.findByPk(req.body.IDAnimal);
-  if(read === null){
-    res.send(JSON.stringify('failed'));
-  }else{
-    res.send(read);
+  try {
+    let animalData = await animal.findByPk(req.body.IDAnimal);
+    res.status(201).json(animalData);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching animal data' });
   }
 });
 

@@ -2,29 +2,25 @@ import React, {useEffect, useState} from "react";
 import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
 
-export default function CadastroAnimal ({navigation})
+export default function CadastroProced ({navigation})
 {
-
-    const[name, setName] = useState(null);
-    const[nascimento, setNascimento] = useState(null);
-    const[chegada, setChegada] = useState(null);
-    const[raca, setRaca] = useState(null);
     const[id, setId] = useState(null);
+    const[procedimento, setProcedimento] = useState(null);
+    const[data, setData] = useState(null);
     const [display, setDisplay]=useState('none')
 
     //envio form de login
     async function sendForm3(){
-        let response=await fetch('http://192.168.1.15:3000/cadastroAnimal',{
+        let response=await fetch('http://localhost:3000/cadastroProced',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                nome: name,
-                raca: raca,
-                dataChegada: chegada,
-                nascimento: nascimento,
+                id: id,
+                proced: procedimento,
+                data: data,
             }),
           });
           let json = await response.json();
@@ -40,14 +36,13 @@ export default function CadastroAnimal ({navigation})
     return(
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
-                <Text style={css.loginHeader}>Cadastre o animal</Text>
-                <Text style={css.login_error(display)}> O Id do {name} será {id}</Text>
+                <Text style={css.loginHeader}>Cadastre o procedimento</Text>
+                <Text style={css.login_error(display)}>Vacina registrada</Text>
             </View>
             <View style={css.login_form}>
-                <TextInput style={css.login_input} placeholder="Nome" onChangeText={text=>setName(text)}/>
-                <TextInput style={css.login_input} placeholder="Raça" onChangeText={text=>setRaca(text)}/>
-                <TextInput style={css.login_input} placeholder="Data de Nascimento" onChangeText={text=>setNascimento(text)}/>
-                <TextInput style={css.login_input} placeholder="Data da Chegada" onChangeText={text=>setChegada(text)}/>
+                <TextInput style={css.login_input} placeholder="ID do Animal" onChangeText={text=>setId(text)}/>
+                <TextInput style={css.login_input} placeholder="Nome do procedimento" onChangeText={text=>setProcedimento(text)}/>
+                <TextInput style={css.login_input} placeholder="Data do procedimento" onChangeText={text=>setData(text)}/>
                 <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm3()}>
                     <Text style={css.login_buttomText}>Enviar</Text>
                 </TouchableOpacity>
@@ -56,4 +51,4 @@ export default function CadastroAnimal ({navigation})
     )
 }
 
-export {CadastroAnimal}
+export {CadastroProced}

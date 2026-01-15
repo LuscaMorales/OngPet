@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('VacinaAnimals', {
+    await queryInterface.createTable('ProcedimentoAnimals', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,22 +12,22 @@ module.exports = {
       data: {
         type: Sequelize.DATEONLY
       },
-      idAnimal: {
+      idProcedimento: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'animals',
+            tableName: 'Procedimentos',
             key: 'id'
           },
         },
         onUpdate:'cascade',
         onDelete:'cascade'
       },
-      idVacina: {
+      idAnimal: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'vacinas',
+            tableName: 'Animals',
             key: 'id'
           },
         },
@@ -45,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('VacinaAnimals');
+    await queryInterface.dropTable('ProcedimentoAnimals');
   }
 };

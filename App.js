@@ -2,15 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { css } from './assets/css/Css';
-import Login from './views/Login'
-import AreaRestrita from './views/AreaRestrita';
-import CadastroAnimal from './views/CadastroAnimal';
-import ConsultaAnimal from './views/ConsultaAnimal';
-import AreaFuncionario from './views/AreaFuncionario';
-import AnimalInfo from './views/AnimalInfo';
-import CadastroVacina from './views/CadastroVacina';
-import CadastroProced from './views/CadastroProced';
+import { css } from './mobile/assets/css/Css';
+import Login from './mobile/views/Login'
+import AreaRestrita from './mobile/views/AreaRestrita';
+import CadastroAnimal from './mobile/views/CadastroAnimal';
+import ConsultaAnimal from './mobile/views/ConsultaAnimal';
+import AreaFuncionario from './mobile/views/AreaFuncionario';
+import AnimalInfo from './mobile/views/AnimalInfo';
+import CadastroVacina from './mobile/views/CadastroVacina';
+import CadastroProced from './mobile/views/CadastroProced';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,3 +30,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
+  
