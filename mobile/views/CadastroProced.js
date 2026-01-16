@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
+import { Picker } from "@react-native-picker/picker";
+import { addProcedm } from "../services/procedServices";
 
 export default function CadastroProced ({navigation})
 {
@@ -8,6 +10,32 @@ export default function CadastroProced ({navigation})
     const[procedimento, setProcedimento] = useState(null);
     const[data, setData] = useState(null);
     const [display, setDisplay]=useState('none')
+    const [tipoProcedimento, setTipoProcedimento] = useState('Consulta');
+
+
+    const handleCadastro = async () => {
+        const procedData = {
+            id: id,
+            proced: procedimento,
+            data: data,
+            tipo: tipoProcedimento
+        };
+
+        try {
+            const response = await addProcedm(procedData);
+            alert('Procedimento cadastrado com sucesso! ID: ' + response.id);
+            setId('');
+            setProcedimento('');
+            setData('');
+            setDisplay('flex');
+        } catch (error) {
+            alert('Erro ao cadastrar procedimento:', error);
+        }
+    };
+
+
+
+
 
     //envio form de login
     async function sendForm3(){
@@ -43,7 +71,16 @@ export default function CadastroProced ({navigation})
                 <TextInput style={css.login_input} placeholder="ID do Animal" onChangeText={text=>setId(text)}/>
                 <TextInput style={css.login_input} placeholder="Nome do procedimento" onChangeText={text=>setProcedimento(text)}/>
                 <TextInput style={css.login_input} placeholder="Data do procedimento" onChangeText={text=>setData(text)}/>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm3()}>
+                <Picker style={css.login_input}
+                    selectedValue={tipoProcedimento}
+                    onValueChange={(itemValue) => setTipoProcedimento(itemValue)}>
+                    <Picker.Item label="Consulta" value="Consulta" />
+                    <Picker.Item label="Cirurgia" value="Cirurgia" />
+                    <Picker.Item label="Exame" value="Exame" />
+                    <Picker.Item label="Castração" value="Castração" />
+                    <Picker.Item label="Outro" value="Outro" />
+                </Picker>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>handleCadastro()}>
                     <Text style={css.login_buttomText}>Enviar</Text>
                 </TouchableOpacity>
             </View>

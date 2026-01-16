@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
   ProcedimentoAnimal.init({
     data: DataTypes.DATEONLY,
     idProcedimento: DataTypes.INTEGER,
-    idAnimal: DataTypes.INTEGER
+    idAnimal: DataTypes.INTEGER,
+    observacao: DataTypes.TEXT,
   }, {
     sequelize,
     modelName: 'ProcedimentoAnimal',

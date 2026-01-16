@@ -115,7 +115,16 @@ app.post('/ConsultaProced', async (req,res)=>{
   }
 });
 
-app.post('/cadastroProced', async (req,res)=>{
+
+app.post('/cadastroProced', async (req,res)=> {
+  console.log("Recebido procedimento: ", req.body);
+  const [procedmt] = await procedimento.findOrCreate({
+    where: { nome: req.body.proced, tipo: req.body.tipo },
+  });
+});
+
+
+app.post('/cadastroProced1', async (req,res)=>{
   let verif = await procedimento.findOne({
     where:{nome:req.body.proced}
   });

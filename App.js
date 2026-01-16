@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="CadastroProced">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="AreaRestrita" component={AreaRestrita} />
         <Stack.Screen name="CadastroAnimal" component={CadastroAnimal} />

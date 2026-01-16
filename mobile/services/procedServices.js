@@ -11,12 +11,12 @@ export const getAnimal = async (animalId) => {
     }
 };
 
-export const addAnimal = async (animalData) =>{
+export const addProcedm = async (procedData) =>{
     try {
-        const response = await api.post('/cadastroAnimal', animalData);
+        const response = await api.post('/cadastroProced', procedData);
         return response.data;
     } catch (error) {
-        console.error('Error adding animal:', error);
+        console.error('Error adding procedimento:', error);
         throw error;
     } 
 };
