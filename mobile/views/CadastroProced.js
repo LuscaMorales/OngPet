@@ -34,9 +34,6 @@ export default function CadastroProced ({navigation})
     };
 
 
-
-
-
     //envio form de login
     async function sendForm3(){
         let response=await fetch('http://localhost:3000/cadastroProced',{

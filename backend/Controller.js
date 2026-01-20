@@ -35,6 +35,8 @@ app.listen(port, ()=>{
     console.log('Example app listening on port 3000');
 });
 
+// ------------------ User Routes ------------------
+
 app.post('/login', async (req,res)=>{
   let response= await user.findOne({
     where:{username:req.body.username, password: req.body.password}
@@ -55,6 +57,8 @@ app.post('/cadastroUser', async (req,res)=>{
     updatedAt: new Date()
   });
 });
+
+// ------------------ Animal Routes ------------------
 
 app.post('/cadastroAnimal', async (req,res)=>{
   try {
@@ -91,6 +95,9 @@ app.post('/ConsultaAnimal', async (req,res)=>{
   }
 });
 
+
+// ------------------ Vacina Routes ------------------
+
 app.post('/ConsultaVac', async (req,res)=>{
   let verifVac=await vacAni.findOne({
     where:{idAnimal:req.body.IDAnimal}
@@ -102,6 +109,34 @@ app.post('/ConsultaVac', async (req,res)=>{
     res.send(vac);
   }
 });
+
+
+app.post('/cadastroVacina', async (req,res)=>{
+  let verifVac = await vacina.findOne({
+    where:{nome:req.body.vacina}
+  });
+  if(verifVac === null){
+    let criaVac = await vacina.create({
+      nome:req.body.vacina,
+      laboratorio:req.body.lab
+    });
+    let criaVacAni = await vacAni.create({
+      data:new Date(formatData(req.body.data)),
+      idAnimal:req.body.id,
+      idVacina:criaVac.id
+    });
+  }else{
+    console.log("achei");
+    let criaVacAni = await vacAni.create({
+      data:new Date(formatData(req.body.data)),
+      idAnimal:req.body.id,
+      idVacina:req.body.vacina
+    });
+  }
+ // res.send(criaVacAni);  
+});
+
+// ------------------ Procedimento Routes ------------------
 
 app.post('/ConsultaProced', async (req,res)=>{
   let verifProced=await procedAni.findOne({
@@ -151,30 +186,6 @@ app.post('/cadastroProced1', async (req,res)=>{
  // res.send(criaProcedAni);
 });
 
-app.post('/cadastroVacina', async (req,res)=>{
-  let verifVac = await vacina.findOne({
-    where:{nome:req.body.vacina}
-  });
-  if(verifVac === null){
-    let criaVac = await vacina.create({
-      nome:req.body.vacina,
-      laboratorio:req.body.lab
-    });
-    let criaVacAni = await vacAni.create({
-      data:new Date(formatData(req.body.data)),
-      idAnimal:req.body.id,
-      idVacina:criaVac.id
-    });
-  }else{
-    console.log("achei");
-    let criaVacAni = await vacAni.create({
-      data:new Date(formatData(req.body.data)),
-      idAnimal:req.body.id,
-      idVacina:req.body.vacina
-    });
-  }
- // res.send(criaVacAni);  
-});
 
 
 app.get('/consultaMac', async (req,res)=>{
