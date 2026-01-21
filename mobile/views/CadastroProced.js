@@ -21,14 +21,24 @@ export default function CadastroProced ({navigation})
             tipo: tipoProcedimento
         };
 
+        if (!procedData.id || !procedData.proced || !procedData.data) {
+            alert('Todos os campos são obrigatórios');
+            return;
+        }
+
         try {
             const response = await addProcedm(procedData);
+            if (response.sucess === false) {
+                alert(`${response.message}`);
+                return;
+            }
             alert('Procedimento cadastrado com sucesso! ID: ' + response.id);
             setId('');
             setProcedimento('');
             setData('');
             setDisplay('flex');
         } catch (error) {
+            console.log(error)
             alert('Erro ao cadastrar procedimento:', error);
         }
     };
@@ -65,9 +75,9 @@ export default function CadastroProced ({navigation})
                 <Text style={css.login_error(display)}>Vacina registrada</Text>
             </View>
             <View style={css.login_form}>
-                <TextInput style={css.login_input} placeholder="ID do Animal" onChangeText={text=>setId(text)}/>
-                <TextInput style={css.login_input} placeholder="Nome do procedimento" onChangeText={text=>setProcedimento(text)}/>
-                <TextInput style={css.login_input} placeholder="Data do procedimento" onChangeText={text=>setData(text)}/>
+                <TextInput style={css.login_input} value={id} placeholder="ID do Animal" onChangeText={text=>setId(text)}/>
+                <TextInput style={css.login_input} value={procedimento} placeholder="Nome do procedimento" onChangeText={text=>setProcedimento(text)}/>
+                <TextInput style={css.login_input} value={data} placeholder="Data do procedimento" onChangeText={text=>setData(text)}/>
                 <Picker style={css.login_input}
                     selectedValue={tipoProcedimento}
                     onValueChange={(itemValue) => setTipoProcedimento(itemValue)}>

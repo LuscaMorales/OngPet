@@ -27,9 +27,19 @@ function formatData(stringDate){
   let mes = stringDate.substring(3,6);
   let ano = stringDate.substring(6,10);
   let dateOK = mes + dia + ano;
+  if (parseInt(dia) > 31 || parseInt(mes) > 12 || parseInt(ano) < 1900 || parseInt(ano) > 2100){
+    return null;
+  }
   return dateOK;
 }
 
+function formatString(string) {
+  return string
+    .trim()
+    .toUpperCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
 
 app.listen(port, ()=>{
     console.log('Example app listening on port 3000');
@@ -153,9 +163,39 @@ app.post('/ConsultaProced', async (req,res)=>{
 
 app.post('/cadastroProced', async (req,res)=> {
   console.log("Recebido procedimento: ", req.body);
+  const NewDate = formatData(req.body.data);
+  if (!NewDate) {
+    return res.status(404).json({
+        error: {
+        code: 'INVALID_DATE',
+        message: 'Data inválida'
+      }
+    });
+  }
+  const AnimalExists = await animal.findByPk(req.body.id);
+  if (!AnimalExists) {
+    return res.status(404).json({
+        error: {
+        code: 'ANIMAL_NOT_FOUND',
+        message: 'Animal não encontrado'
+      }
+    });
+  }
+  const nomeFormatado = formatString(req.body.proced);
   const [procedmt] = await procedimento.findOrCreate({
-    where: { nome: req.body.proced, tipo: req.body.tipo },
+    where: { nome: nomeFormatado, tipo: req.body.tipo },
   });
+  try{
+      const procedAnimal = await procedAni.create({
+        data: new Date(NewDate),
+        idProcedimento: procedmt.dataValues.id,
+        idAnimal: req.body.id,
+      });
+      console.log("Procedimento animal criado: ", procedAnimal);
+      res.status(201).json(procedAnimal);
+  } catch (error) {
+      res.status(500).json({ error: 'Error adding procedimento'});
+  } 
 });
 
 
