@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {KeyboardAvoidingView, ScrollView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
+import { loginUser } from "../services/userServices";
 
 export default function Login ({navigation})
 {
@@ -11,8 +12,23 @@ export default function Login ({navigation})
     const[login, setLogin] = useState(null);
 
     //envio form de login
-    async function sendForm(){
-        let response=await fetch('http://localhost:3000/login',{
+
+    const handleLogin = async () => {
+        const result = await loginUser(user, password);
+        if (!result.sucess) {
+            setDisplay('flex');
+            setTimeout(() => {
+                setDisplay('none');
+            }, 5000);
+        } else if (result.data.power === 3) {
+            navigation.navigate('AreaRestrita');
+        } else {
+            navigation.navigate('AreaFuncionario');
+        }
+    }
+
+    /*async function sendForm(){
+        let response=await fetch('http://localhost:3000/users/login',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -22,9 +38,10 @@ export default function Login ({navigation})
                 username: user,
                 password: password
             }),
-          });
-          let json=await response.json();
-          if(json === 'failed'){
+            });
+        let json=await response.json();
+        console.log(response);
+        if(json === 'failed'){
             setDisplay('flex');
             setTimeout(()=>{
                 setDisplay('none');
@@ -34,7 +51,7 @@ export default function Login ({navigation})
           }else{
             navigation.navigate('AreaFuncionario')
           }
-        }
+        }*/
     
 
     return(
@@ -46,7 +63,7 @@ export default function Login ({navigation})
             <View style={css.login_form}>
                 <TextInput style={css.login_input} placeholder="Usuário" onChangeText={text=>setUser(text)}/>
                 <TextInput style={css.login_input} placeholder="Senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm()}>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>handleLogin()}>
                     <Text style={css.login_buttomText}>Entrar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={css.login_buttomGeral} onPress={()=>navigation.navigate('ConsultaAnimal')}>

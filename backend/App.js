@@ -47,7 +47,7 @@ app.listen(port, ()=>{
 
 // ------------------ User Routes ------------------
 
-app.post('/login', async (req,res)=>{
+/*app.post('/login', async (req,res)=>{
   let response= await user.findOne({
     where:{username:req.body.username, password: req.body.password}
   });
@@ -66,7 +66,10 @@ app.post('/cadastroUser', async (req,res)=>{
     createdAt: new Date(),
     updatedAt: new Date()
   });
-});
+});*/
+
+app.use('/users', require('./routes/userRoutes'));
+
 
 // ------------------ Animal Routes ------------------
 
