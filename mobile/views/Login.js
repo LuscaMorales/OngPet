@@ -27,33 +27,6 @@ export default function Login ({navigation})
         }
     }
 
-    /*async function sendForm(){
-        let response=await fetch('http://localhost:3000/users/login',{
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: user,
-                password: password
-            }),
-            });
-        let json=await response.json();
-        console.log(response);
-        if(json === 'failed'){
-            setDisplay('flex');
-            setTimeout(()=>{
-                setDisplay('none');
-            }, 5000);
-          }else if(json.power === 3){
-            navigation.navigate('AreaRestrita');
-          }else{
-            navigation.navigate('AreaFuncionario')
-          }
-        }*/
-    
-
     return(
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>

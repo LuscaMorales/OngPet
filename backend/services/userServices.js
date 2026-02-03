@@ -9,14 +9,19 @@ async function login(username, password){
 }
 
 async function cadastro({username, password, power}){
-    const newUser = await User.create({
-        username,
-        password,
-        power,
-        createdAt: new Date(),
-        updatedAt: new Date()
-    });
-    return {sucess: true, data: newUser};
+    try {
+        const newUser = await User.create({
+            username,
+            password,
+            power,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        });
+        return {sucess: true, data: newUser};
+    } catch (error) {
+        console.error(error);
+        return {sucess: false, message: 'Erro ao cadastrar usuário'};
+    }
 }
 
 module.exports = {

@@ -3,7 +3,7 @@ import { api } from './api';
 
 export const checkAnimal = async (animalId) => {
     try {
-        const response = await api.post('/ConsultaAnimal', { IDAnimal: animalId });        
+        const response = await api.get(`/animals/checkAnimal/${animalId}`);        
         return response.data.id;
     } catch (error) {
         console.error('Error fetching animal data:', error);
@@ -13,7 +13,7 @@ export const checkAnimal = async (animalId) => {
 
 export const addAnimal = async (animalData) =>{
     try {
-        const response = await api.post('/cadastroAnimal', animalData);
+        const response = await api.post('/animals/cadastroAnimal', animalData);
         return response.data;
     } catch (error) {
         console.error('Error adding animal:', error);
@@ -23,7 +23,7 @@ export const addAnimal = async (animalData) =>{
 
 export const getCompleteAnimal = async (animalId) => {
     try {
-        const response = await api.get(`/AnimalCompleto/${animalId}`);
+        const response = await api.get(`/animals/animalCompleto/${animalId}`);
         return response.data;
     } catch (error) {
         console.error('Error fetching complete animal data:', error);

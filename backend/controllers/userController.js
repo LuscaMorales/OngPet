@@ -15,9 +15,9 @@ async function login(req, res){
 
 async function cadastro(req, res){
     try{
-        const { username, password, power } = req.body;
+        const {username, password, power} = req.body;
         const result = await userService.cadastro({username, password, power});
-        return res.status(201).json(result);
+        return res.status(201).json(result.data);
     }catch (error){
         return res.status(500).json({error: 'Internal server error'});
     }

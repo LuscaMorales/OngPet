@@ -45,30 +45,8 @@ app.listen(port, ()=>{
     console.log('Example app listening on port 3000');
 });
 
-// ------------------ User Routes ------------------
-
-/*app.post('/login', async (req,res)=>{
-  let response= await user.findOne({
-    where:{username:req.body.username, password: req.body.password}
-  });
-  if(response === null){
-    res.send(JSON.stringify('failed'));
-  }else{
-    res.send(response);
-  }
-});
-
-app.post('/cadastroUser', async (req,res)=>{
-  let create=await user.create({
-    username:req.body.username,
-    password:req.body.password,
-    power:req.body.power,
-    createdAt: new Date(),
-    updatedAt: new Date()
-  });
-});*/
-
 app.use('/users', require('./routes/userRoutes'));
+app.use('/animals', require('./routes/animalRoutes'));
 
 
 // ------------------ Animal Routes ------------------
