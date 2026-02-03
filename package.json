@@ -17,6 +17,7 @@
     "expo": "~54.0.33",
     "expo-status-bar": "~3.0.9",
     "express": "^5.2.1",
+    "find-versions": "^6.0.0",
     "mysql2": "^3.16.2",
     "react": "19.2.4",
     "react-dom": "19.2.4",
