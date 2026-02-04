@@ -13,7 +13,8 @@ export default function ConsultaAnimal ({navigation})
     const handleAnimal = async () => {
         try {
             const response = await checkAnimal(id);
-            if (response === null) {
+            console.log("HANDLE ANIMAL RESPONSE:", response);
+            if (!response.sucess) {
                 setDisplay('flex');
                 setTimeout(() => {
                     setDisplay('none');

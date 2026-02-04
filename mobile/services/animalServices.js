@@ -14,7 +14,8 @@ export const checkAnimal = async (animalId) => {
 export const addAnimal = async (animalData) =>{
     try {
         const response = await api.post('/animals/cadastroAnimal', animalData);
-        return response.data;
+        console.log(response.data.data);
+        return response.data.data;
     } catch (error) {
         console.error('Error adding animal:', error);
         throw error;
@@ -24,7 +25,7 @@ export const addAnimal = async (animalData) =>{
 export const getCompleteAnimal = async (animalId) => {
     try {
         const response = await api.get(`/animals/animalCompleto/${animalId}`);
-        return response.data;
+        return response.data.data;
     } catch (error) {
         console.error('Error fetching complete animal data:', error);
         throw error;

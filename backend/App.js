@@ -22,24 +22,6 @@ let procedAni = models.ProcedimentoAnimal;
 let port=process.env.PORT || 3000;
 const id = 1;
 
-function formatData(stringDate){
-  let dia = stringDate.substring(0,3);
-  let mes = stringDate.substring(3,6);
-  let ano = stringDate.substring(6,10);
-  let dateOK = mes + dia + ano;
-  if (parseInt(dia) > 31 || parseInt(mes) > 12 || parseInt(ano) < 1900 || parseInt(ano) > 2100){
-    return null;
-  }
-  return dateOK;
-}
-
-function formatString(string) {
-  return string
-    .trim()
-    .toUpperCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-}
 
 app.listen(port, ()=>{
     console.log('Example app listening on port 3000');
@@ -47,45 +29,6 @@ app.listen(port, ()=>{
 
 app.use('/users', require('./routes/userRoutes'));
 app.use('/animals', require('./routes/animalRoutes'));
-
-
-// ------------------ Animal Routes ------------------
-
-app.post('/cadastroAnimal', async (req,res)=>{
-  try {
-    let animalCreated = await animal.create({
-    nome:req.body.nome,
-    raca:req.body.raca,
-    dataChegada: new Date(formatData(req.body.dataChegada)),
-    nascimento: new Date(formatData(req.body.nascimento)),
-    createdAt: new Date(),
-    updatedAt: new Date()
-    });
-    res.status(201).json(animalCreated);
-  }catch (error) {
-    res.status(500).json({ error: 'Error adding animal' });
-  }
-});
-
-app.get('/AnimalCompleto/:id', async (req,res)=>{
-  const animalData = await animal.findByPk(req.params.id, {
-    include: [vacAni, procedAni],
-  });
-  if (!animalData) {
-    return res.status(404).json({ error: "Animal não encontrado"});
-  }
-  res.status(201).json(animalData);
-});
-
-app.post('/ConsultaAnimal', async (req,res)=>{
-  try {
-    let animalData = await animal.findByPk(req.body.IDAnimal);
-    res.status(201).json(animalData);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching animal data' });
-  }
-});
-
 
 // ------------------ Vacina Routes ------------------
 

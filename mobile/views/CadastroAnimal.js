@@ -21,12 +21,10 @@ export default function CadastroAnimal ({navigation})
             dataChegada: chegada,
             nascimento: nascimento
         };
-
         if (!animalData.nome || !animalData.raca) {
             alert('Nome e raça são obrigatórios');
             return;
         }
-
         try {
             const response = await addAnimal(animalData);
             alert('Animal cadastrado com sucesso! ID: ' + response.id);
