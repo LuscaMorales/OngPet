@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
+import { cadastroVac } from "../services/vacinaServices";
 
 export default function CadastroVacina ({navigation})
 {
@@ -9,6 +10,31 @@ export default function CadastroVacina ({navigation})
     const[data, setData] = useState(null);
     const[lab, setLab] = useState(null);
     const [display, setDisplay]=useState('none')
+
+    const handleCadastro = async () => {
+        const vacinaData = {
+            id: id,
+            vacina: vacina,
+            lab: lab,
+            data: data,
+        };
+        if (!vacinaData.id || !vacinaData.vacina || !vacinaData.lab || !vacinaData.data) {
+            alert('Todos os campos são obrigatórios');
+            return;
+        }
+        try {
+            const response = await cadastroVac(vacinaData);
+            alert('Vacina cadastrada com sucesso!');
+            setId('');
+            setVacina('');
+            setLab('');
+            setData('');
+            setDisplay('flex');
+        } catch (error) {
+            console.error('Erro ao cadastrar vacina:', error);
+        }
+    };
+
 
     //envio form de login
     async function sendForm3(){
@@ -46,7 +72,7 @@ export default function CadastroVacina ({navigation})
                 <TextInput style={css.login_input} placeholder="Nome da Vacina" onChangeText={text=>setVacina(text)}/>
                 <TextInput style={css.login_input} placeholder="Laboratório" onChangeText={text=>setLab(text)}/>
                 <TextInput style={css.login_input} placeholder="Data da Aplicação" onChangeText={text=>setData(text)}/>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm3()}>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>handleCadastro()}>
                     <Text style={css.login_buttomText}>Enviar</Text>
                 </TouchableOpacity>
             </View>

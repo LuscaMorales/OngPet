@@ -29,46 +29,8 @@ app.listen(port, ()=>{
 
 app.use('/users', require('./routes/userRoutes'));
 app.use('/animals', require('./routes/animalRoutes'));
-
-// ------------------ Vacina Routes ------------------
-
-app.post('/ConsultaVac', async (req,res)=>{
-  let verifVac=await vacAni.findOne({
-    where:{idAnimal:req.body.IDAnimal}
-  });
-  if(verifVac === null){
-    res.send(JSON.stringify('null'));
-  }else{
-    let vac = await vacina.findByPk(verifVac.idVacina);
-    res.send(vac);
-  }
-});
-
-
-app.post('/cadastroVacina', async (req,res)=>{
-  let verifVac = await vacina.findOne({
-    where:{nome:req.body.vacina}
-  });
-  if(verifVac === null){
-    let criaVac = await vacina.create({
-      nome:req.body.vacina,
-      laboratorio:req.body.lab
-    });
-    let criaVacAni = await vacAni.create({
-      data:new Date(formatData(req.body.data)),
-      idAnimal:req.body.id,
-      idVacina:criaVac.id
-    });
-  }else{
-    console.log("achei");
-    let criaVacAni = await vacAni.create({
-      data:new Date(formatData(req.body.data)),
-      idAnimal:req.body.id,
-      idVacina:req.body.vacina
-    });
-  }
- // res.send(criaVacAni);  
-});
+app.use('/vacinas', require('./routes/vacinaRoutes'));
+app.use('/procedimentos', require('./routes/procedimentoRoutes'));
 
 // ------------------ Procedimento Routes ------------------
 

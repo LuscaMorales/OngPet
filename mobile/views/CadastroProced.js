@@ -20,12 +20,10 @@ export default function CadastroProced ({navigation})
             data: data,
             tipo: tipoProcedimento
         };
-
         if (!procedData.id || !procedData.proced || !procedData.data) {
             alert('Todos os campos são obrigatórios');
             return;
         }
-
         try {
             const response = await addProcedm(procedData);
             if (response.sucess === false) {
@@ -42,30 +40,6 @@ export default function CadastroProced ({navigation})
             alert('Erro ao cadastrar procedimento:', error);
         }
     };
-
-
-    //envio form de login
-    async function sendForm3(){
-        let response=await fetch('http://localhost:3000/cadastroProced',{
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: id,
-                proced: procedimento,
-                data: data,
-            }),
-          });
-          let json = await response.json();
-          if(json == null){
-            console.log("deu erro");
-          }else{
-            setId(json.id)
-            setDisplay('flex');
-          }
-        }
     
 
     return(
