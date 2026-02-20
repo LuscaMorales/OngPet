@@ -30,7 +30,7 @@ app.listen(port, ()=>{
 app.use('/users', require('./routes/userRoutes'));
 app.use('/animals', require('./routes/animalRoutes'));
 app.use('/vacinas', require('./routes/vacinaRoutes'));
-app.use('/procedimentos', require('./routes/procedimentoRoutes'));
+//app.use('/procedimentos', require('./routes/procedimentoRoutes'));
 
 // ------------------ Procedimento Routes ------------------
 
