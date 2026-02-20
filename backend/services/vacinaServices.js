@@ -7,7 +7,7 @@ async function cadastroVacina(vacinaData){
     try {
         const animal = await Animal.findByPk(vacinaData.id);
         if (!animal) {
-            return {sucess: false, message: 'Animal not found'};
+            return {sucess: false, message: 'Animal nott found'};
         }
         const newVac = await Vacina.findOrCreate({
             where: { nome : vacinaData.vacina, laboratorio: vacinaData.lab },
