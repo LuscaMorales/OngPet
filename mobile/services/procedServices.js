@@ -13,7 +13,7 @@ export const getAnimal = async (animalId) => {
 
 export const addProcedm = async (procedData) =>{
     try {
-        const response = await api.post('/cadastroProced', procedData);
+        const response = await api.post('/procedimentos/cadastroProced', procedData);
         return response.data;
     } catch (error) {
         if(error.response) {

@@ -1,6 +1,6 @@
 const models=require('../models');
 const { Animal, Vacina, VacinaAnimal} = models;
-const { formatData } = require('../utils/formatters');
+const { formatData, formatString } = require('../utils/formatters');
 
 
 async function cadastroVacina(vacinaData){
@@ -10,7 +10,7 @@ async function cadastroVacina(vacinaData){
             return {sucess: false, message: 'Animal not found'};
         }
         const newVac = await Vacina.findOrCreate({
-            where: { nome : vacinaData.vacina, laboratorio: vacinaData.lab },
+            where: { nome : formatString(vacinaData.vacina), laboratorio: formatString(vacinaData.lab)},
         });
         const vacinaAni = await VacinaAnimal.create({
             data: new Date(formatData(vacinaData.data)),
@@ -19,36 +19,11 @@ async function cadastroVacina(vacinaData){
             createdAt: new Date(),
             updatedAt: new Date()
         });
+        return {sucess: true, data: vacinaData}
     } catch (error) {
         return {sucess: false, message: 'Error to add vacine animal data' };
     }
 }
-
-/*
-app.post('/cadastroVacina', async (req,res)=>{
-  let verifVac = await vacina.findOne({
-    where:{nome:req.body.vacina}
-  });
-  if(verifVac === null){
-    let criaVac = await vacina.create({
-      nome:req.body.vacina,
-      laboratorio:req.body.lab
-    });
-    let criaVacAni = await vacAni.create({
-      data:new Date(formatData(req.body.data)),
-      idAnimal:req.body.id,
-      idVacina:criaVac.id
-    });
-  }else{
-    console.log("achei");
-    let criaVacAni = await vacAni.create({
-      data:new Date(formatData(req.body.data)),
-      idAnimal:req.body.id,
-      idVacina:req.body.vacina
-    });
-  }
- // res.send(criaVacAni);  
-});*/
 
 module.exports = {
     cadastroVacina
