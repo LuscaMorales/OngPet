@@ -6,9 +6,9 @@ import { addProcedm } from "../services/procedServices";
 
 export default function CadastroProced ({navigation})
 {
-    const[id, setId] = useState(null);
-    const[procedimento, setProcedimento] = useState(null);
-    const[data, setData] = useState(null);
+    const[id, setId] = useState('');
+    const[procedimento, setProcedimento] = useState('');
+    const[data, setData] = useState('');
     const [display, setDisplay]=useState('none')
     const [tipoProcedimento, setTipoProcedimento] = useState('Consulta');
 
@@ -26,14 +26,14 @@ export default function CadastroProced ({navigation})
         }
         try {
             const response = await addProcedm(procedData);
+            setId('');
+            setProcedimento('');
+            setData('');
             if (response.sucess === false) {
                 alert(`${response.message}`);
                 return;
             }
-            alert('Procedimento cadastrado com sucesso! ID: ' + response.id);
-            setId('');
-            setProcedimento('');
-            setData('');
+            alert('Procedimento cadastrado com sucesso! ID: ' + response.data.id);
             setDisplay('flex');
         } catch (error) {
             console.log(error)
