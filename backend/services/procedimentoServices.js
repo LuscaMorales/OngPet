@@ -7,13 +7,15 @@ async function cadastro(procedData){
     if (!NewDate) {
         return {
             sucess: false,
-            code: 'INVALID_DATE'}
+            code: 'INVALID_DATE',
+            message: "Data inválida"}
         };
     const AnimalExists = await Animal.findByPk(procedData.id);
     if (!AnimalExists) {
         return {
             sucess: false,
-            code: 'ANIMAL_NOT_FOUND'}
+            code: 'ANIMAL_NOT_FOUND',
+            message: "Animal não encontrado ou não existe."}
     };
     const nomeFormatado = formatString(procedData.proced);
     const [procedmt] = await Procedimento.findOrCreate({

@@ -46,7 +46,7 @@ export default function CadastroProced ({navigation})
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
                 <Text style={css.loginHeader}>Cadastre o procedimento</Text>
-                <Text style={css.login_error(display)}>Vacina registrada</Text>
+                <Text style={css.login_error(display)}>{tipoProcedimento} registrada</Text>
             </View>
             <View style={css.login_form}>
                 <TextInput style={css.login_input} value={id} placeholder="ID do Animal" onChangeText={text=>setId(text)}/>

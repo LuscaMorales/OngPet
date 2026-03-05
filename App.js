@@ -11,15 +11,17 @@ import AreaFuncionario from './mobile/views/AreaFuncionario';
 import AnimalInfo from './mobile/views/AnimalInfo';
 import CadastroVacina from './mobile/views/CadastroVacina';
 import CadastroProced from './mobile/views/CadastroProced';
+import CadastroUser from './mobile/views/CadastroUser';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="CadastroProced">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="AreaRestrita" component={AreaRestrita} />
+        <Stack.Screen name="CadastroUser" component={CadastroUser} />
         <Stack.Screen name="CadastroAnimal" component={CadastroAnimal} />
         <Stack.Screen name="ConsultaAnimal" component={ConsultaAnimal} />
         <Stack.Screen name="AreaFuncionario" component={AreaFuncionario} />
