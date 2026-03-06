@@ -17,7 +17,7 @@ export const loginUser = async (username, password) => {
 
 export const cadastroUser = async (user, password, power) => {
     try {
-        const response = await api.post('/users/cadastro', {
+        const response = await api.post('/users/register', {
             user, password, power});
         return {
             sucess: true,

@@ -13,7 +13,7 @@ async function login(req, res){
     }
 }
 
-async function cadastro(req, res){
+async function register(req, res){
     try{
         const {username, password, power} = req.body;
         const result = await userService.cadastro({username, password, power});

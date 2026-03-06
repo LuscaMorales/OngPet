@@ -24,7 +24,13 @@ User.init(
       allowNull: false,
     },
     role:{
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(
+        'admin',
+        'funcionario',
+        'veterinario',
+        'viewer',
+        'recepcao'
+      ),
       allowNull: false,
     },
     password:{
