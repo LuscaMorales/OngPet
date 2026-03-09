@@ -2,9 +2,26 @@ const userService = require('../services/userServices');
 
 async function login(req, res){
     try{
-        const { username, password } = req.body;
-        const result = await userService.login(username, password);
+        const { cpf, password } = req.body;
+        const result = await userService.authenticate(cpf, password);
+        console.log("erro controller ", result);
         if(!result.sucess){
+            const notFound = "USER_NOT_FOUND";
+            const invalidPassword = "INVALID_PASSWORD";
+            if(result.code == notFound){
+                return res.status(404).json({
+                    sucess: false,
+                    code : notFound ,
+                    message: "Usuário não encontrado ou inexistente"
+                });
+            }
+            if(result.code === invalidPassword){
+                return res.status(400).json({
+                    sucess: false,
+                    code : invalidPassword ,
+                    message: "Senha inválida"
+                });
+            }
             return res.status(400).json({error: result.message});
         }
         return res.status(200).json(result.data);
@@ -15,8 +32,18 @@ async function login(req, res){
 
 async function register(req, res){
     try{
-        const {username, password, power} = req.body;
-        const result = await userService.cadastro({username, password, power});
+        const userData = req.body;
+        const result = await userService.register(userData);
+        if(!result.sucess){
+            const userExist = "USER_EXISTS";
+            if(result.code === userExist){
+                return res.status(400).json({
+                    sucess: false,
+                    code : userExist ,
+                    message: "Usuário já existe"
+                });
+            }
+        }
         return res.status(201).json(result.data);
     }catch (error){
         return res.status(500).json({error: 'Internal server error'});
@@ -25,5 +52,5 @@ async function register(req, res){
 
 module.exports = {
     login,
-    cadastro
+    register
 };

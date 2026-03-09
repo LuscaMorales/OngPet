@@ -1,5 +1,7 @@
 const {User} = require('../models');
 const bcrypt = require('bcrypt');
+const { formatData } = require('../utils/formatters');
+
 
 
 async function authenticate(cpf, password){
@@ -20,7 +22,7 @@ async function authenticate(cpf, password){
         data: user};
 }
 
-async function create({userData}){
+async function register({userData}){
     try {
         const existing = await User.findOne({where: {cpf: userData.cpf}});
         if(existing){
@@ -31,12 +33,13 @@ async function create({userData}){
             }
         }
         const newUser = await User.create({
-            fullname: userData.fullname,
+            fullName: userData.fullName,
             cpf: userData.cpf,
             email: userData.email,
             phone: userData.phone,
             role: userData.role || "viewer",
             password: userData.password,
+            birth_date: new Date(formatData(userData.birth_date)),
             createdAt: new Date(),
             updatedAt: new Date()
         });
@@ -50,6 +53,6 @@ async function create({userData}){
 }
 
 module.exports = {
-    login,
-    cadastro
+    authenticate,
+    register
 }

@@ -1,26 +1,27 @@
 import React, {useEffect, useState} from "react";
 import {KeyboardAvoidingView, ScrollView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
-import { loginUser } from "../services/userServices";
+import { login } from "../services/userServices";
 
 export default function Login ({navigation})
 {
 
-    const [display, setDisplay]=useState('none')
-    const[user, setUser] = useState(null);
-    const[password, setPassword] = useState(null);
-    const[login, setLogin] = useState(null);
+    const[display, setDisplay]=useState('none')
+    const[cpf, setCpf] = useState("17791256475");
+    const[password, setPassword] = useState("mauricio123");
+
 
     //envio form de login
 
     const handleLogin = async () => {
-        const result = await loginUser(user, password);
+        const roles = ["funcionario", "veterinario", "admin"];
+        const result = await login(cpf, password);
         if (!result.sucess) {
             setDisplay('flex');
             setTimeout(() => {
                 setDisplay('none');
             }, 5000);
-        } else if (result.data.power === 3) {
+        } else if (roles.includes(result.data.role)) {
             navigation.navigate('AreaRestrita');
         } else {
             navigation.navigate('AreaFuncionario');
@@ -34,7 +35,7 @@ export default function Login ({navigation})
                 <Text style={css.login_error(display)}> Usuário ou senha inválidos</Text>
             </View>
             <View style={css.login_form}>
-                <TextInput style={css.login_input} placeholder="Usuário" onChangeText={text=>setUser(text)}/>
+                <TextInput style={css.login_input} placeholder="CPF" onChangeText={text=>setCpf(text)}/>
                 <TextInput style={css.login_input} placeholder="Senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
                 <TouchableOpacity style={css.login_buttom} onPress={()=>handleLogin()}>
                     <Text style={css.login_buttomText}>Entrar</Text>
