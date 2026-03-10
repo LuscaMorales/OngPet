@@ -8,39 +8,47 @@ import { Picker } from "@react-native-picker/picker";
 export default function CadastroUser ({navigation})
 {
 
-    const[name,setName] = useState('');
-    const[cpf, setCpf] = useState('');
-    const[email, setEmail] = useState('');
-    const[phone, setPhone] = useState('');
-    const[role, setRole] = useState('Visitante');
-    const[password, setPassword] = useState('');
-    const[birth_date, setBirthDate] = useState('');
+    const[name,setName] = useState("Marcus Alberto");
+    const[cpf, setCpf] = useState("11132806704");
+    const[email, setEmail] = useState("marcusalberto@gmail.com");
+    const[phone, setPhone] = useState("21956729823");
+    const[role, setRole] = useState("veterinario");
+    const[password, setPassword] = useState("marcus123");
+    const[birth_date, setBirthDate] = useState("11/02/2002");
     const requiredFields = ['fullName', 'cpf', 'email', 'phone', 'password', 'birth_date'];
     const[display, setDisplay] = useState('none');
     
     const handleCadastro = async () => {
         const userData = {
-            fullName: "João Mauricio",
-            cpf: "17791256475",
-            email: "joaomauricio@gmail.com",
-            phone: "21956729823",
-            role: "veterinario",
-            password: "mauricio123",
-            birth_date: "11/02/2023"
+            fullName: name,
+            cpf: cpf,
+            email: email,
+            phone: phone,
+            role: role,
+            password: password,
+            birth_date: birth_date 
         };
         const missingFields = requiredFields.some(field => !userData[field]);
         if (missingFields) {
             alert('Todos os parâmetros são obrigatórios');
             return;
         }
+        if (cpf.length !== 11) {
+            alert("CPF inválido");
+            return;
+        }
+        if (!email.includes("@")) {
+            alert("Email inválido");
+            return;
+        }
         try {
             const response = await cadastro(userData);
-            if(!response.sucess){
-                if(response.error.code === 'USER_EXISTS'){
-                    alert('Usuário já existe');
+            if(!response.success){
+                if(response.error.code){
+                    alert(response.error.message);
                 }
             }else{
-                alert('Usuário cadastrado com sucesso! ID: ' + response.id);
+                alert('Usuário cadastrado com sucesso! ID: ');
                 setName('');
                 setCpf('');
                 setPhone('');

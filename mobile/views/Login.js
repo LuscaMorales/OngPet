@@ -16,17 +16,18 @@ export default function Login ({navigation})
     const handleLogin = async () => {
         const roles = ["funcionario", "veterinario", "admin"];
         const result = await login(cpf, password);
-        if (!result.sucess) {
+        if (!result.success) {
             setDisplay('flex');
             setTimeout(() => {
                 setDisplay('none');
             }, 5000);
-        } else if (roles.includes(result.data.role)) {
+        }
+        if (roles.includes(result.data.role)) {
             navigation.navigate('AreaRestrita');
         } else {
             navigation.navigate('AreaFuncionario');
         }
-    }
+    };
 
     return(
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
