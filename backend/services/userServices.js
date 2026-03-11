@@ -1,7 +1,7 @@
 const {User} = require('../models');
 const bcrypt = require('bcrypt');
 const { formatData } = require('../utils/formatters');
-const {cpfValidator} = require('../utils/validators');
+const {cpfValidator, validateEmail, telefone_validation} = require('../utils/validators');
 
 
 
@@ -33,18 +33,34 @@ async function register({userData}){
                 message: "Usuário já cadastrado"
             }
         }
-        if(!cpfValidator(userData.cpf)){
+        const newCpf = cpfValidator(userData.cpf);
+        if(!newCpf){
             return {
                 success: false,
                 code: "INVALID_CPF",
                 message: "CPF inválido"
             }
         }
+        if(!validateEmail(userData.email)){
+            return {
+                success: false,
+                code: "INVALID_EMAIL",
+                message: "Email inválido"
+            }
+        }
+        const newPhone = telefone_validation(userData.phone);
+        if(!newPhone){
+            return{
+                success: false,
+                code: "INVALID_PHONE",
+                message: "Telefone inválido"
+            }
+        }
         const newUser = await User.create({
             fullName: userData.fullName,
-            cpf: userData.cpf,
+            cpf: newCpf,
             email: userData.email,
-            phone: userData.phone,
+            phone: newPhone,
             role: userData.role || "viewer",
             password: userData.password,
             birth_date: new Date(formatData(userData.birth_date)),

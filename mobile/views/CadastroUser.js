@@ -11,7 +11,7 @@ export default function CadastroUser ({navigation})
     const[name,setName] = useState("Marcus Alberto");
     const[cpf, setCpf] = useState("11132806704");
     const[email, setEmail] = useState("marcusalberto@gmail.com");
-    const[phone, setPhone] = useState("21956729823");
+    const[phone, setPhone] = useState("(01)43444-4444");
     const[role, setRole] = useState("veterinario");
     const[password, setPassword] = useState("marcus123");
     const[birth_date, setBirthDate] = useState("11/02/2002");
@@ -48,7 +48,7 @@ export default function CadastroUser ({navigation})
                     alert(response.error.message);
                 }
             }else{
-                alert('Usuário cadastrado com sucesso! ID: ');
+                alert('Usuário cadastrado com sucesso!');
                 setName('');
                 setCpf('');
                 setPhone('');

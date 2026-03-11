@@ -34,13 +34,9 @@ async function register(req, res){
         const userData = req.body;
         const result = await userService.register(userData);
         if(!result.success){
-            const userExist = "USER_EXISTS";
-            const invalidCpf = "INVALID_CPF";
+            errorList = ["USER_EXISTS", "INVALID_CPF", "INVALID_EMAIL", "INVALID_PHONE"];
             console.log("resusoansodn", result);
-            if(result.code === userExist){
-                return res.status(400).json(result);
-            }
-            if(result.code === invalidCpf){
+            if(errorList.includes(result.code)){
                 return res.status(400).json(result);
             }
         }
