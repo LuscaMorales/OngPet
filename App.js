@@ -18,11 +18,11 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="CadastroUser">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} /> 
         <Stack.Screen name="AreaRestrita" component={AreaRestrita} />
         <Stack.Screen name="CadastroUser" component={CadastroUser} />
-        <Stack.Screen name="CadastroAnimal" component={CadastroAnimal} />
+        <Stack.Screen name="CadastroAnimal" component={CadastroAnimal} /> 
         <Stack.Screen name="ConsultaAnimal" component={ConsultaAnimal} />
         <Stack.Screen name="AreaFuncionario" component={AreaFuncionario} />
         <Stack.Screen name="AnimalInfo" component={AnimalInfo} />

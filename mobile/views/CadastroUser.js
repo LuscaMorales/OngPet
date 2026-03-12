@@ -3,22 +3,24 @@ import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Pl
 import { css } from "../assets/css/Css";
 import { cadastro } from "../services/userServices";
 import { Picker } from "@react-native-picker/picker";
+import { TextInputMask } from 'react-native-masked-text'
 
 
 export default function CadastroUser ({navigation})
 {
 
-    const[name,setName] = useState("Marcus Alberto");
-    const[cpf, setCpf] = useState("11132806704");
-    const[email, setEmail] = useState("marcusalberto@gmail.com");
-    const[phone, setPhone] = useState("(01)43444-4444");
-    const[role, setRole] = useState("veterinario");
-    const[password, setPassword] = useState("marcus123");
-    const[birth_date, setBirthDate] = useState("11/02/2002");
-    const requiredFields = ['fullName', 'cpf', 'email', 'phone', 'password', 'birth_date'];
+    const[name,setName] = useState('');
+    const[cpf, setCpf] = useState("");
+    const[email, setEmail] = useState('');
+    const[phone, setPhone] = useState('');
+    const[role, setRole] = useState('viewer');
+    const[password, setPassword] = useState('');
+    const[birth_date, setBirthDate] = useState('');
+    
     const[display, setDisplay] = useState('none');
     
     const handleCadastro = async () => {
+        const requiredFields = ['fullName', 'cpf', 'email', 'phone', 'password', 'birth_date'];
         const userData = {
             fullName: name,
             cpf: cpf,
@@ -71,10 +73,25 @@ export default function CadastroUser ({navigation})
             </View>
             <View style={css.login_form}>
                 <TextInput style={css.login_input} value={name} placeholder="Nome Completo" onChangeText={text=>setName(text)}/>
-                <TextInput style={css.login_input} value={cpf} placeholder="CPF" onChangeText={text=>setCpf(text)}/>
-                <TextInput style={css.login_input} value={birth_date} placeholder="Data de Nascimento" onChangeText={text=>setBirthDate(text)}/>
+                <TextInputMask style={css.login_input} placeholder="CPF"
+                type={'cpf'} value={cpf} onChangeText={text =>setCpf(text)}/>
+                <TextInputMask style={css.login_input} placeholder="Data de Nascimento"
+                    type={'datetime'}
+                    options={{
+                        format:'DD/MM/YYYY'
+                    }}
+                    value={birth_date}
+                    onChangeText={text =>setBirthDate(text)}/>
                 <TextInput style={css.login_input} value={email} placeholder="Email" onChangeText={text=>setEmail(text)}/>
-                <TextInput style={css.login_input} value={phone} placeholder="Telefone" onChangeText={text=>setPhone(text)}/>
+                <TextInputMask style={css.login_input} placeholder="Telefone"
+                    type={'cel-phone'}
+                    options={{
+                        maskType: 'BRL',
+                        withDDD: true,
+                        dddMask: '(99) '
+                    }}
+                    value={phone}
+                    onChangeText={text =>setPhone(text)}/>
                 <Picker style={css.login_input}
                     selectedValue={role}
                     onValueChange={(itemValue) => setRole(itemValue)}>
@@ -84,7 +101,7 @@ export default function CadastroUser ({navigation})
                     <Picker.Item label="Visitante" value="viewer" />
                     <Picker.Item label="Recepção" value="recepcao" />
                 </Picker>
-                <TextInput style={css.login_input} value={password} placeholder="Senha" onChangeText={text=>setPassword(text)}/>
+                <TextInput style={css.login_input} value={password} placeholder="Senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
                 <TouchableOpacity style={css.login_buttom} onPress={()=>handleCadastro()}>
                     <Text style={css.login_buttomText}>Enviar</Text>
                 </TouchableOpacity>

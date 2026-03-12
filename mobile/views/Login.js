@@ -2,18 +2,23 @@ import React, {useEffect, useState} from "react";
 import {KeyboardAvoidingView, ScrollView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
 import { login } from "../services/userServices";
+import { TextInputMask } from 'react-native-masked-text'
+
 
 export default function Login ({navigation})
 {
 
     const[display, setDisplay]=useState('none')
-    const[cpf, setCpf] = useState("17791256475");
-    const[password, setPassword] = useState("mauricio123");
+    const[cpf, setCpf] = useState('');
+    const[password, setPassword] = useState('');
 
 
-    //envio form de login
 
     const handleLogin = async () => {
+        if (cpf.length !== 14) {
+            alert("CPF inválido");
+            return;
+        }
         const roles = ["funcionario", "veterinario", "admin"];
         const result = await login(cpf, password);
         if (!result.success) {
@@ -21,6 +26,7 @@ export default function Login ({navigation})
             setTimeout(() => {
                 setDisplay('none');
             }, 5000);
+            return;
         }
         if (roles.includes(result.data.role)) {
             navigation.navigate('AreaRestrita');
@@ -36,7 +42,8 @@ export default function Login ({navigation})
                 <Text style={css.login_error(display)}> Usuário ou senha inválidos</Text>
             </View>
             <View style={css.login_form}>
-                <TextInput style={css.login_input} placeholder="CPF" onChangeText={text=>setCpf(text)}/>
+                <TextInputMask style={css.login_input} placeholder="CPF"
+                type={'cpf'} value={cpf} onChangeText={text =>setCpf(text)}/>
                 <TextInput style={css.login_input} placeholder="Senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
                 <TouchableOpacity style={css.login_buttom} onPress={()=>handleLogin()}>
                     <Text style={css.login_buttomText}>Entrar</Text>
