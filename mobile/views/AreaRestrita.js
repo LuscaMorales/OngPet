@@ -10,7 +10,7 @@ export default function AreaRestrita ({navigation})
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
                 <Text style={css.HeaderAR}>Cadastro de Usuarios</Text>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroUser')}>
+                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('UsersList')}>
                     <Text style={css.login_buttomText}>Enviar</Text>
                 </TouchableOpacity>
             </View>

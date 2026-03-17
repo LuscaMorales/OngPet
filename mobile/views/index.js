@@ -1,0 +1,10 @@
+export { default as AreaRestrita } from "./AreaRestrita";
+export { default as Login } from "./Login";
+export { default as CadastroAnimal } from "./CadastroAnimal";
+export { default as ConsultaAnimal } from "./ConsultaAnimal";
+export { default as AreaFuncionario } from "./AreaFuncionario";
+export { default as AnimalInfo } from "./AnimalInfo";
+export { default as CadastroVacina } from "./CadastroVacina";
+export { default as CadastroProced } from "./CadastroProced";
+export { default as CadastroUser } from "./CadastroUser";
+export { default as UsersList } from "./UsersList";

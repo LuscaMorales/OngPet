@@ -45,7 +45,6 @@ async function register(req, res){
         return res.status(500).json({error: 'Internal server error'});
     }
 }
-
 module.exports = {
     login,
     register
