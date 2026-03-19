@@ -76,7 +76,20 @@ async function register({userData}){
     }
 }
 
+async function getAll(){
+    const users = await User.findAll();   
+    if(!users){
+        return {
+            success: false,
+            code: "USERS_NOT_FOUND"};
+    }   
+    return {
+        success: true,
+        data: users};
+}
+
 module.exports = {
     authenticate,
-    register
+    register,
+    getAll
 }

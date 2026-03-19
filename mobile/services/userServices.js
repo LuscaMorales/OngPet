@@ -30,3 +30,18 @@ export const cadastro = async (userData) => {
         }
     }
 }
+
+export const getAll = async () => {
+    try {
+        const response = await api.get('/users/getAll');
+        return {
+            success: true,
+            data: response.data
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.response.data
+        };
+    }
+}

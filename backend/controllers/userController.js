@@ -45,7 +45,21 @@ async function register(req, res){
         return res.status(500).json({error: 'Internal server error'});
     }
 }
+
+async function getAll(req, res){
+    try{
+        const result = await userService.getAll();
+        if(!result.success){
+            return res.status(400).json(result);
+        }
+        return res.status(201).json(result.data);
+    }catch (error){
+        return res.status(500).json({error: 'Internal server error'});
+    }
+}
+
 module.exports = {
     login,
-    register
+    register,
+    getAll
 };
