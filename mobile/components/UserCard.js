@@ -1,23 +1,41 @@
 import { View, Text, TouchableOpacity} from "react-native"
 import * as React from 'react';
-import { List } from 'react-native-paper';
+import {IconButton, List, Avatar } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTheme } from 'react-native-paper';
+
 
 export default function UserCard({user, onEdit, onDelete}){
+    const theme = useTheme();
+
     return (
         <View style={{padding: 15}}>
             <List.Item
                 title={user.fullName}
                 description={user.role}
-                left={props => <List.Icon {...props} icon="folder" />}
+                theme={theme}
+                left={props => (
+                    <Avatar.Image
+                    {...props}
+                    size={40}
+                    source={{ uri: "https://i.pravatar.cc/300" }}
+                    />
+                )}
+                right={props => (
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <IconButton
+                        icon="pencil"
+                        size={20}
+                        onPress={() => onEdit()}
+                    />
+                    <IconButton
+                        icon="delete"
+                        size={20}
+                        onPress={() => onDelete()}
+                    />
+                    </View>
+                )}
             />
-            <Text>{user.fullName}</Text>
-            <Text>{user.role}</Text>
-            <TouchableOpacity onPress={onEdit}>
-                <Text>Editar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={onDelete}>
-                <Text>Excluir</Text>
-            </TouchableOpacity>
         </View>
     );
 }

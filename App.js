@@ -3,6 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { css } from './mobile/assets/css/Css';
+import { PaperProvider } from 'react-native-paper';
+import { lightTheme, darkTheme } from './mobile/themes';
+import React, {useEffect, useState} from "react";
+
+
 
 import {
   Login, 
@@ -19,8 +24,12 @@ import {
 
 const Stack = createNativeStackNavigator();
 
+
 export default function App() {
+  const [isDark, setIsDark] = useState(true);
+
   return (
+    <PaperProvider theme={isDark ? darkTheme : lightTheme}>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="AreaRestrita">
         <Stack.Screen name="Login" component={Login} /> 
@@ -34,6 +43,7 @@ export default function App() {
         <Stack.Screen name="CadastroProced" component={CadastroProced} />
       </Stack.Navigator>
     </NavigationContainer>
+    </PaperProvider>
   );
 }
   

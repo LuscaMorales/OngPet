@@ -4,10 +4,14 @@ import { css } from "../assets/css/Css";
 import { getCompleteAnimal } from "../services/animalServices";
 import UserCard from "../components/UserCard";
 import {getAll} from "../services/userServices";
+import { Provider as PaperProvider } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
+
 
 export default function UsersList ({navigation})
 {
 
+    const theme = useTheme();
     const[id, setId] = useState(null);
     const[usersData, setUsersData] = useState('');      
 
@@ -30,11 +34,8 @@ export default function UsersList ({navigation})
 
 
     return(
-        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
-            <View>
-                <Text style={css.loginHeader}>Lista de usuário</Text>
-            </View>
-            <View>
+        <PaperProvider>
+            <View style={{ backgroundColor: theme.colors.background}}>
                 <FlatList 
                     data={usersData}
                     keyExtractor={item => item.id}
@@ -47,9 +48,7 @@ export default function UsersList ({navigation})
                     )}
                 />
             </View>
-            <View style={css.login_form}>
-            </View>
-        </KeyboardAvoidingView>
+        </PaperProvider>
     )
 }
 
