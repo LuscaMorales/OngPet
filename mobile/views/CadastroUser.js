@@ -1,13 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
-import { cadastro } from "../services/userServices";
+import { cadastro, update } from "../services/userServices";
 import { Picker } from "@react-native-picker/picker";
 import { TextInputMask } from 'react-native-masked-text'
+import { Button } from "react-native-paper";
 
 
-export default function CadastroUser ({navigation})
+export default function CadastroUser ({route, navigation})
 {
+
+    const userData = route.params?.userData;
+    const isEditMode = !!userData;
+    const [loading, setLoading] = useState(false);
 
     const[name,setName] = useState('');
     const[cpf, setCpf] = useState("");
@@ -18,10 +23,24 @@ export default function CadastroUser ({navigation})
     const[birth_date, setBirthDate] = useState('');
     
     const[display, setDisplay] = useState('none');
+
+    useEffect(()=>{
+        if(isEditMode){
+            setName(userData.fullName);
+            setCpf(userData.cpf);
+            setEmail(userData.email);
+            setPhone(userData.phone);
+            setRole(userData.role);
+            setPassword(userData.password);
+            setBirthDate(userData.birth_date);
+        }
+    }, [isEditMode]);
     
-    const handleCadastro = async () => {
+    const handleSubmit = async () => {
+        setLoading(true);
+
         const requiredFields = ['fullName', 'cpf', 'email', 'phone', 'password', 'birth_date'];
-        const userData = {
+        const NewUserData = {
             fullName: name,
             cpf: cpf,
             email: email,
@@ -30,7 +49,7 @@ export default function CadastroUser ({navigation})
             password: password,
             birth_date: birth_date 
         };
-        const missingFields = requiredFields.some(field => !userData[field]);
+        const missingFields = requiredFields.some(field => !NewUserData[field]);
         if (missingFields) {
             alert('Todos os parâmetros são obrigatórios');
             return;
@@ -44,7 +63,18 @@ export default function CadastroUser ({navigation})
             return;
         }
         try {
-            const response = await cadastro(userData);
+            if(isEditMode){
+                const response = await update(userData.id, NewUserData);
+                if(!response.success){
+                    if(response.error.code){
+                        alert(response.error.message);
+                    }
+                }else{
+                    alert("Usuário alterado com sucesso");
+                    navigation.goBack();
+                }
+            }
+            const response = await cadastro(NewUserData);
             if(!response.success){
                 if(response.error.code){
                     alert(response.error.message);
@@ -62,14 +92,14 @@ export default function CadastroUser ({navigation})
             }
         } catch (error) {
             console.log(error);
-            console.error('Erro ao cadastrar usuário:', error);
+            console.error('Erro cadastro/edit usuário:', error);
         }
     };      
 
     return(
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
-                <Text style={css.loginHeader}>Cadastre o usuário</Text>
+                <Text style={css.loginHeader}>{isEditMode ? 'Editar o usuário' : 'Crie o usuário'}</Text>
             </View>
             <View style={css.login_form}>
                 <TextInput style={css.login_input} value={name} placeholder="Nome Completo" onChangeText={text=>setName(text)}/>
@@ -102,9 +132,7 @@ export default function CadastroUser ({navigation})
                     <Picker.Item label="Recepção" value="recepcao" />
                 </Picker>
                 <TextInput style={css.login_input} value={password} placeholder="Senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>handleCadastro()}>
-                    <Text style={css.login_buttomText}>Enviar</Text>
-                </TouchableOpacity>
+                <Button onPress={()=>handleSubmit} disabled={loading}>{isEditMode ? 'Salvar Alterações' : 'Criar usuário'}</Button>
             </View>
         </KeyboardAvoidingView>
     )

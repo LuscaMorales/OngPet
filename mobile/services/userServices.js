@@ -31,6 +31,22 @@ export const cadastro = async (userData) => {
     }
 }
 
+export const update = async (id, userData) => {
+    try {
+        const response = await api.put('/users/update/${id}', {userData});
+        console.log(response);
+        return {
+            success: true,
+            data: response.data
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.response.data
+        }
+    }
+}
+
 export const getAll = async () => {
     try {
         const response = await api.get('/users/getAll');

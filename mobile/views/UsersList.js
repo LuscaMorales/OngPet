@@ -30,7 +30,16 @@ export default function UsersList ({navigation})
         };
         fetchUserData();
     }, []);
-    
+
+    const editUser = async () => {
+        const procedData = {};
+        try {
+            const response = await addProcedm(procedData);
+        } catch (error) {
+            console.log(error)
+            alert('Erro ao editar usuário', error);
+        }
+    };
 
 
     return(
@@ -42,7 +51,7 @@ export default function UsersList ({navigation})
                     renderItem={({item}) => (
                         <UserCard
                             user={item}
-                            onEdit={()=>alert("editando")}
+                            onEdit={()=>navigation.navigate('CadastroUser', { userData: item})}
                             onDelete={()=>alert("deletando")}
                         />
                     )}

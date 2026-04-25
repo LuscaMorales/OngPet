@@ -15,14 +15,22 @@ export default function AreaRestrita ({navigation})
             <View style={{ backgroundColor: theme.colors.background}}>
                 <View>
                     <Text>Cadastro de Usuarios</Text>
-                    <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('UsersList')}>
+                    <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroUser')}>
                         <Text style={css.login_buttomText}>Enviar</Text>
                     </TouchableOpacity>
                 </View>
+                <View>
+                    <Text>Lista de Usuarios</Text>
+                    <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('UsersList')}>
+                    <Text style={css.login_buttomText}>Enviar</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
                     <Text style={css.HeaderAR}>Cadastro de Animais</Text>
                     <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroAnimal')}>
                         <Text style={css.login_buttomText}>Entrar</Text>
                     </TouchableOpacity>
+                </View>
                 <View>
                 <Text style={css.HeaderAR}>Consulta de Animais</Text>
                     <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('ConsultaAnimal')}>

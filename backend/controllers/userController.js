@@ -46,6 +46,24 @@ async function register(req, res){
     }
 }
 
+async function update(req, res){
+    try{
+        const { id } = req.params;
+        const userData = req.body;
+        const result = await userService.update(id, userData);
+        if(!result.success){
+            errorList = ["USER_EXISTS", "INVALID_CPF", "INVALID_EMAIL", "INVALID_PHONE"];
+            console.log("resusoansodn", result);
+            if(errorList.includes(result.code)){
+                return res.status(400).json(result);
+            }
+        }
+        return res.status(201).json(result.data);
+    }catch (error){
+        return res.status(500).json({error: 'Internal server error'});
+    }
+}
+
 async function getAll(req, res){
     try{
         const result = await userService.getAll();
@@ -61,5 +79,6 @@ async function getAll(req, res){
 module.exports = {
     login,
     register,
+    update,
     getAll
 };
