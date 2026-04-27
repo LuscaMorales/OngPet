@@ -2,6 +2,7 @@ const {User} = require('../models');
 const bcrypt = require('bcrypt');
 const { formatData } = require('../utils/formatters');
 const {cpfValidator, validateEmail, telefone_validation} = require('../utils/validators');
+const { Op } = require('sequelize');
 
 
 
@@ -77,15 +78,20 @@ async function register({userData}){
     }
 }
 
-async function update(id, {userData}){
+async function update(id, userData){
     try {
-        const existing = await User.findOne({where: {cpf: userData.cpf}});
+        //Project.findAll({where: {name: 'Some Project',[Op.not]: [{ id: id }],},});
+        console.log(userData);
+        const existing = await User.findOne({where: {cpf: userData.cpf, [Op.not]: [{ id: id }],},});
+        console.log(existing);
         if(existing){
             return {
                 success: false,
                 code: "USER_EXISTS",
                 message: "Usuário já cadastrado"
             }
+        }else{
+            console.log("passaaaaaaaaaaaaaaaaaaaaaaaaaaou");
         }
         const newCpf = cpfValidator(userData.cpf);
         if(!newCpf){
@@ -110,7 +116,7 @@ async function update(id, {userData}){
                 message: "Telefone inválido"
             }
         }
-        const newUser = await User.({
+        const newUser = await User.update({
             fullName: userData.fullName,
             cpf: newCpf,
             email: userData.email,

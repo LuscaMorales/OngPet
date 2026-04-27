@@ -73,22 +73,23 @@ export default function CadastroUser ({route, navigation})
                     alert("Usuário alterado com sucesso");
                     navigation.goBack();
                 }
-            }
-            const response = await cadastro(NewUserData);
-            if(!response.success){
-                if(response.error.code){
-                    alert(response.error.message);
-                }
             }else{
-                alert('Usuário cadastrado com sucesso!');
-                setName('');
-                setCpf('');
-                setPhone('');
-                setRole('');
-                setEmail('');
-                setPassword('');
-                setBirthDate('');
-                setDisplay('flex');
+                const response = await cadastro(NewUserData);
+                if(!response.success){
+                    if(response.error.code){
+                        alert(response.error.message);
+                    }
+                }else{
+                    alert('Usuário cadastrado com sucesso!');
+                    setName('');
+                    setCpf('');
+                    setPhone('');
+                    setRole('');
+                    setEmail('');
+                    setPassword('');
+                    setBirthDate('');
+                    setDisplay('flex');
+                }
             }
         } catch (error) {
             console.log(error);
@@ -132,7 +133,7 @@ export default function CadastroUser ({route, navigation})
                     <Picker.Item label="Recepção" value="recepcao" />
                 </Picker>
                 <TextInput style={css.login_input} value={password} placeholder="Senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
-                <Button onPress={()=>handleSubmit} disabled={loading}>{isEditMode ? 'Salvar Alterações' : 'Criar usuário'}</Button>
+                <Button onPress={()=>handleSubmit()} disabled={loading}>{isEditMode ? 'Salvar Alterações' : 'Criar usuário'}</Button>
             </View>
         </KeyboardAvoidingView>
     )

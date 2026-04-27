@@ -35,7 +35,7 @@ async function register(req, res){
         const result = await userService.register(userData);
         if(!result.success){
             errorList = ["USER_EXISTS", "INVALID_CPF", "INVALID_EMAIL", "INVALID_PHONE"];
-            console.log("resusoansodn", result);
+            console.log("register controller", result);
             if(errorList.includes(result.code)){
                 return res.status(400).json(result);
             }
@@ -53,7 +53,6 @@ async function update(req, res){
         const result = await userService.update(id, userData);
         if(!result.success){
             errorList = ["USER_EXISTS", "INVALID_CPF", "INVALID_EMAIL", "INVALID_PHONE"];
-            console.log("resusoansodn", result);
             if(errorList.includes(result.code)){
                 return res.status(400).json(result);
             }
