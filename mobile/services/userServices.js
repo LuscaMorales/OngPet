@@ -61,3 +61,19 @@ export const getAll = async () => {
         };
     }
 }
+
+export const delUser = async (id) => {
+    try {
+        const response = await api.delete(`/users/delete/${id}`);
+        return {
+            success: true,
+            data: response.data
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.response.data
+        };
+    }
+}
+

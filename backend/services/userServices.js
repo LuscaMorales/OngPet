@@ -2,7 +2,7 @@ const {User} = require('../models');
 const bcrypt = require('bcrypt');
 const { formatData } = require('../utils/formatters');
 const {cpfValidator, validateEmail, telefone_validation} = require('../utils/validators');
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 
 
 
@@ -80,18 +80,13 @@ async function register({userData}){
 
 async function update(id, userData){
     try {
-        //Project.findAll({where: {name: 'Some Project',[Op.not]: [{ id: id }],},});
-        console.log(userData);
         const existing = await User.findOne({where: {cpf: userData.cpf, [Op.not]: [{ id: id }],},});
-        console.log(existing);
         if(existing){
             return {
                 success: false,
                 code: "USER_EXISTS",
                 message: "Usuário já cadastrado"
             }
-        }else{
-            console.log("passaaaaaaaaaaaaaaaaaaaaaaaaaaou");
         }
         const newCpf = cpfValidator(userData.cpf);
         if(!newCpf){
@@ -124,9 +119,8 @@ async function update(id, userData){
             role: userData.role || "viewer",
             password: userData.password,
             birth_date: new Date(formatData(userData.birth_date)),
-            createdAt: new Date(),
             updatedAt: new Date()
-        });
+        }, {where: {id:id}});
         return {success: true, data: newUser};
     } catch (error) {
         console.error(error);
@@ -148,16 +142,16 @@ async function getAll(){
         data: users};
 }
 
-async function getAll(){
-    const users = await User.findAll();   
-    if(!users){
+async function deleteUser(id){
+    const user = await User.destroy({where: {id:id}});   
+    if(!user){
         return {
             success: false,
-            code: "USERS_NOT_FOUND"};
+            code: "USER_NOT_FOUND"};
     }   
     return {
         success: true,
-        data: users};
+        data: user};
 }
 
 module.exports = {

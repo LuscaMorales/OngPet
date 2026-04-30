@@ -32,8 +32,9 @@ export default function CadastroUser ({route, navigation})
             setPhone(userData.phone);
             setRole(userData.role);
             setPassword(userData.password);
-            setBirthDate(userData.birth_date);
-        }
+            setBirthDate(userData.birth_date.split('-').reverse().join('/'));
+            console.log(birth_date);
+        }   
     }, [isEditMode]);
     
     const handleSubmit = async () => {
@@ -54,7 +55,7 @@ export default function CadastroUser ({route, navigation})
             alert('Todos os parâmetros são obrigatórios');
             return;
         }
-        if (cpf.length !== 11) {
+        if (cpf.length !== 11 && cpf.length !== 14) {
             alert("CPF inválido");
             return;
         }

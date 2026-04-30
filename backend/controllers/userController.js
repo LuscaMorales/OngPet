@@ -75,9 +75,23 @@ async function getAll(req, res){
     }
 }
 
+async function delUser(req, res){
+    try{
+        const { id } = req.params;
+        const result = await userService.deleteUser(id);
+        if(!result.success){
+            return res.status(400).json(result);
+        }
+        return res.status(201).json(result.data);
+    }catch (error){
+        return res.status(500).json({error: 'Internal server error'});
+    }
+}
+
 module.exports = {
     login,
     register,
     update,
-    getAll
+    getAll,
+    delUser
 };
