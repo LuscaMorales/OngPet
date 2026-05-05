@@ -158,5 +158,6 @@ module.exports = {
     authenticate,
     register,
     update,
-    getAll
+    getAll,
+    deleteUser
 }

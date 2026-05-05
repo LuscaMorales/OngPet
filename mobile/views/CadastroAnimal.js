@@ -6,12 +6,12 @@ import { addAnimal } from "../services/animalServices";
 export default function CadastroAnimal ({navigation})
 {
 
-    const[name, setName] = useState(null);
-    const[titleName, setTitleName] = useState(null);
-    const[nascimento, setNascimento] = useState(null);
-    const[chegada, setChegada] = useState(null);
-    const[raca, setRaca] = useState(null);
-    const[id, setId] = useState(null);
+    const[name, setName] = useState('');
+    const[titleName, setTitleName] = useState('');
+    const[nascimento, setNascimento] = useState('');
+    const[chegada, setChegada] = useState('');
+    const[raca, setRaca] = useState('');
+    const[id, setId] = useState('');
     const[display, setDisplay] = useState('none')
 
     const handleCadastro = async () => {

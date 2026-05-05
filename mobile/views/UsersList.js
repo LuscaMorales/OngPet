@@ -25,7 +25,6 @@ export default function UsersList ({navigation})
         try {
             const data = await getAll();
             setUsersData(data.data);
-            console.log(data.data);
         } catch (error) {
             console.error('Erro ao buscar dados dos usuários', error)   ;
         }
@@ -37,7 +36,7 @@ export default function UsersList ({navigation})
         },[])
     );
 
-    const deleteUser = async (id) =>{
+    const deleteUser = async () =>{
         try {
             const deletedUser = await delUser(selectedId);
             fetchUserData();
@@ -83,7 +82,7 @@ export default function UsersList ({navigation})
                         <UserCard
                             user={item}
                             onEdit={()=>navigation.navigate('CadastroUser', { userData: item})}
-                            onDelete={()=>{showDialog(id)}}
+                            onDelete={()=>{showDialog(item.id)}}
                         />
                     )}
                 />

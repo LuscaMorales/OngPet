@@ -31,7 +31,7 @@ export default function App() {
   return (
     <PaperProvider theme={isDark ? darkTheme : lightTheme}>
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="UsersList">
+      <Stack.Navigator initialRouteName="AreaRestrita">
         <Stack.Screen name="Login" component={Login} /> 
         <Stack.Screen name="AreaRestrita" component={AreaRestrita} />
         <Stack.Screen name="CadastroUser" component={CadastroUser} />
