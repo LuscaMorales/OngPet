@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
+import React, {use, useEffect, useState} from "react";
+import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform, Alert } from "react-native";
 import { css } from "../assets/css/Css";
 import { cadastro, update } from "../services/userServices";
 import { Picker } from "@react-native-picker/picker";
 import { TextInputMask } from 'react-native-masked-text'
 import { Button } from "react-native-paper";
+import * as ImagePicker from 'expo-image-picker';
+
 
 
 export default function CadastroUser ({route, navigation})
@@ -13,6 +15,7 @@ export default function CadastroUser ({route, navigation})
     const userData = route.params?.userData;
     const isEditMode = !!userData;
     const [loading, setLoading] = useState(false);
+    const [imageUser, setImageUser] = useState('');
 
     const[name,setName] = useState('');
     const[cpf, setCpf] = useState("");
@@ -48,7 +51,12 @@ export default function CadastroUser ({route, navigation})
             phone: phone,
             role: role,
             password: password,
-            birth_date: birth_date 
+            birth_date: birth_date,
+            image: {
+                uri: imageUser.uri,
+                name: imageUser.fileName,
+                type: 'image/jpeg'
+            }
         };
         const missingFields = requiredFields.some(field => !NewUserData[field]);
         if (missingFields) {
@@ -98,12 +106,33 @@ export default function CadastroUser ({route, navigation})
         }
     };      
 
+    const pickImage = async  () => {
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if(!permissionResult.granted){
+            Alert.alert('Permission required', 'Permission to access the media library is required.');
+            return;
+        }
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'], 
+            quality: 0.7,
+            allowsEditing: true,
+            aspect: [4,3],
+        });
+        if(!result.canceled){
+            setImageUser(result.assets[0])
+        }
+    };
+
     return(
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
                 <Text style={css.loginHeader}>{isEditMode ? 'Editar o usuário' : 'Crie o usuário'}</Text>
             </View>
             <View style={css.login_form}>
+                <View>
+                    <Image style={css.images} source={{uri:imageUser.uri}}/>
+                    <Button onPress={pickImage}>Pick an image from camera roll</Button>
+                </View>
                 <TextInput style={css.login_input} value={name} placeholder="Nome Completo" onChangeText={text=>setName(text)}/>
                 <TextInputMask style={css.login_input} placeholder="CPF"
                 type={'cpf'} value={cpf} onChangeText={text =>setCpf(text)}/>

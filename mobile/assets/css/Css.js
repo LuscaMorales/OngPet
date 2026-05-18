@@ -11,6 +11,10 @@ const css = StyleSheet.create({
     darkbg: {
       backgroundColor: "#333"
     },
+    images:{
+      width: 200,
+      height: 200,
+    },  
     login_error:(text='none')=>({
       fontWeight: "bold",
       fontSize: 22,
