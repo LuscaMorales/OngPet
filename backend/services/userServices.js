@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const { formatData } = require('../utils/formatters');
 const {cpfValidator, validateEmail, telefone_validation} = require('../utils/validators');
 const { Op, where } = require('sequelize');
+const {uploadImage} = require('./uploadServices');
+const { avatar } = require('@material-tailwind/react');
 
 
 
@@ -25,8 +27,21 @@ async function authenticate(cpf, password){
 }
 
 
-async function register({userData}){
+async function register({body, file}){
     try {
+        let imageUrl = null;
+        if(file){
+            const uploadResult = await uploadImage(file);
+            console.log('uploadResult', uploadResult);
+            imageUrl = uploadResult.url;
+        }else{
+            return {
+                success: false,
+                code: "NO_IMAGE",
+                message: "NO_IMAGEOCMING"
+            }
+        }
+        const userData = body;
         const existing = await User.findOne({where: {cpf: userData.cpf}});
         if(existing){
             return {
@@ -67,7 +82,8 @@ async function register({userData}){
             password: userData.password,
             birth_date: new Date(formatData(userData.birth_date)),
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            avatar: imageUrl,
         });
         return {success: true, data: newUser};
     } catch (error) {

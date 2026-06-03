@@ -36,12 +36,11 @@ export default function CadastroUser ({route, navigation})
             setRole(userData.role);
             setPassword(userData.password);
             setBirthDate(userData.birth_date.split('-').reverse().join('/'));
-            console.log(birth_date);
         }   
     }, [isEditMode]);
     
     const handleSubmit = async () => {
-        setLoading(true);
+        //setLoading(true);
 
         const requiredFields = ['fullName', 'cpf', 'email', 'phone', 'password', 'birth_date'];
         const NewUserData = {

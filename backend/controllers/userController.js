@@ -31,10 +31,14 @@ async function login(req, res){
 
 async function register(req, res){
     try{
-        const userData = req.body;
-        const result = await userService.register(userData);
+        const userData = req.file;
+        console.log(userData);
+        const result = await userService.register({
+            body: req.body,
+            file: req.file,
+        });
         if(!result.success){
-            errorList = ["USER_EXISTS", "INVALID_CPF", "INVALID_EMAIL", "INVALID_PHONE"];
+            errorList = ["USER_EXISTS", "INVALID_CPF", "INVALID_EMAIL", "INVALID_PHONE", "NO_IMAGE"];
             console.log("register controller", result);
             if(errorList.includes(result.code)){
                 return res.status(400).json(result);
