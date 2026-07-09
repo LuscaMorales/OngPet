@@ -7,7 +7,7 @@ import { useTheme } from 'react-native-paper';
 
 export default function UserCard({user, onEdit, onDelete}){
     const theme = useTheme();
-
+    const iconNF = "https://res.cloudinary.com/dnpzlhevt/image/upload/v1783554685/iconnotfound_mvfpyt.jpg";
     return (
         <View style={{padding: 15}}>
             <List.Item
@@ -18,7 +18,7 @@ export default function UserCard({user, onEdit, onDelete}){
                     <Avatar.Image
                     {...props}
                     size={40}
-                    source={{ uri: "https://i.pravatar.cc/300" }}
+                    source={{ uri: user.avatarUrl || iconNF}}
                     />
                 )}
                 right={props => (

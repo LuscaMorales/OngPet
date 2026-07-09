@@ -12,7 +12,7 @@ const uploadImage = async (file) => {
   try {
   // upload para Cloudinary
   const result = await cloudinary.uploader.upload(file.path, options);
-  console.log(result);
+  console.log("===============UPLOAD SERVICES===========",result);
   // remove arquivo temporário do servidor
   fs.unlinkSync(file.path);
 

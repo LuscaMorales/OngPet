@@ -51,11 +51,7 @@ export default function CadastroUser ({route, navigation})
             role: role,
             password: password,
             birth_date: birth_date,
-            image: {
-                uri: imageUser.uri,
-                name: imageUser.fileName,
-                type: 'image/jpeg'
-            }
+            avatar : imageUser,
         };
         const missingFields = requiredFields.some(field => !NewUserData[field]);
         if (missingFields) {
@@ -118,7 +114,11 @@ export default function CadastroUser ({route, navigation})
             aspect: [4,3],
         });
         if(!result.canceled){
-            setImageUser(result.assets[0])
+            setImageUser({
+                uri:result.assets[0].uri,
+                name:result.assets[0].fileName,
+                type:result.assets[0].mimeType,
+            });
         }
     };
 
@@ -131,6 +131,14 @@ export default function CadastroUser ({route, navigation})
                 <View>
                     <Image style={css.images} source={{uri:imageUser.uri}}/>
                     <Button onPress={pickImage}>Pick an image from camera roll</Button>
+                    <input
+                        type="file"
+                        onChange={(e) => {
+                            const file = e.target.files[0];
+                            console.log(file);
+                            setImageUser(file);
+                        }}
+                    />
                 </View>
                 <TextInput style={css.login_input} value={name} placeholder="Nome Completo" onChangeText={text=>setName(text)}/>
                 <TextInputMask style={css.login_input} placeholder="CPF"

@@ -32,7 +32,7 @@ async function login(req, res){
 async function register(req, res){
     try{
         const userData = req.file;
-        console.log(userData);
+        console.log("==USER DATA== ", userData);
         const result = await userService.register({
             body: req.body,
             file: req.file,

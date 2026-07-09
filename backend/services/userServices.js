@@ -29,10 +29,9 @@ async function authenticate(cpf, password){
 
 async function register({body, file}){
     try {
-        let imageUrl = null;
+        var imageUrl = "";
         if(file){
             const uploadResult = await uploadImage(file);
-            console.log('uploadResult', uploadResult);
             imageUrl = uploadResult.url;
         }else{
             return {
@@ -73,6 +72,7 @@ async function register({body, file}){
                 message: "Telefone inválido"
             }
         }
+        console.log("========================================", imageUrl);
         const newUser = await User.create({
             fullName: userData.fullName,
             cpf: newCpf,
@@ -83,7 +83,7 @@ async function register({body, file}){
             birth_date: new Date(formatData(userData.birth_date)),
             createdAt: new Date(),
             updatedAt: new Date(),
-            avatar: imageUrl,
+            avatarUrl: imageUrl,
         });
         return {success: true, data: newUser};
     } catch (error) {

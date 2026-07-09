@@ -4,7 +4,7 @@ import { css } from "../assets/css/Css";
 import { getCompleteAnimal } from "../services/animalServices";
 import UserCard from "../components/UserCard";
 import {getAll, delUser} from "../services/userServices";
-import { Button, Dialog, Provider as PaperProvider, Portal } from 'react-native-paper';
+import { Button, Dialog, PaperProvider, Portal } from 'react-native-paper';
 import { useTheme } from 'react-native-paper';
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -58,8 +58,7 @@ export default function UsersList ({navigation})
     deleteUser();
     hideDialog();
     };
-
-
+    
     return(
         <PaperProvider>
             <Portal>
@@ -74,7 +73,7 @@ export default function UsersList ({navigation})
                     </Dialog.Actions>
                 </Dialog>
             </Portal>
-            <View style={{ backgroundColor: theme.colors.background}}>
+            <View style={{ backgroundColor: theme.colors.background, flex: 1}}>
                 <FlatList 
                     data={usersData}
                     keyExtractor={item => item.id}

@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM('admin','funcionario','veterinario','viewer','recepcao'),
       allowNull: false
     },
-    password: { type: DataTypes.STRING, allowNull: false }
+    password: { type: DataTypes.STRING, allowNull: false },
+    avatarUrl: {type: DataTypes.STRING, allowNull: true}
   }, {});
 
   User.beforeCreate(async (user) => {
