@@ -14,7 +14,7 @@ export default function UsersList ({navigation})
 
     const theme = useTheme();
     const[id, setId] = useState(null);
-    const[usersData, setUsersData] = useState('');
+    const[usersData, setUsersData] = useState([]);
     const[user, setUser] = useState('');
 
     const [visible, setVisible] = useState(false);
@@ -26,7 +26,7 @@ export default function UsersList ({navigation})
             const data = await getAll();
             setUsersData(data.data);
         } catch (error) {
-            console.error('Erro ao buscar dados dos usuários', error)   ;
+            Alert.alert('Erro ao buscar dados dos usuários', error);
         }
     };
 
@@ -84,6 +84,17 @@ export default function UsersList ({navigation})
                             onDelete={()=>{showDialog(item.id)}}
                         />
                     )}
+                    ListEmptyComponent={
+                        <View style={{
+                            alignItems: 'center',
+                            padding: 24,
+                        }}
+                        >
+                            <Text variant="bodyLarge">
+                                Nenhum usuário cadastrado!
+                            </Text>
+                        </View>
+                    }
                 />
             </View>
         </PaperProvider>

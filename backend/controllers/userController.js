@@ -54,6 +54,7 @@ async function update(req, res){
     try{
         const { id } = req.params;
         const userData = req.body;
+        console.log(userData);
         const result = await userService.update(id, userData);
         if(!result.success){
             errorList = ["USER_EXISTS", "INVALID_CPF", "INVALID_EMAIL", "INVALID_PHONE"];

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {KeyboardAvoidingView, ScrollView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
 import { css } from "../assets/css/Css";
 import { login } from "../services/userServices";
@@ -11,6 +11,7 @@ export default function Login ({navigation})
     const[display, setDisplay]=useState('none')
     const[cpf, setCpf] = useState('');
     const[password, setPassword] = useState('');
+    const cpfField = useRef(null);
 
 
 
@@ -20,7 +21,7 @@ export default function Login ({navigation})
             return;
         }
         const roles = ["funcionario", "veterinario", "admin"];
-        const result = await login(cpf, password);
+        const result = await login(cpfField.current?.getRawValue(), password);
         if (!result.success) {
             setDisplay('flex');
             setTimeout(() => {
@@ -43,7 +44,7 @@ export default function Login ({navigation})
             </View>
             <View style={css.login_form}>
                 <TextInputMask style={css.login_input} placeholder="CPF"
-                type={'cpf'} value={cpf} onChangeText={text =>setCpf(text)}/>
+                type={'cpf'} value={cpf} ref={cpfField} onChangeText={text =>setCpf(text)}/>
                 <TextInput style={css.login_input} placeholder="Senha" onChangeText={text=>setPassword(text)} secureTextEntry={true}/>
                 <TouchableOpacity style={css.login_buttom} onPress={()=>handleLogin()}>
                     <Text style={css.login_buttomText}>Entrar</Text>

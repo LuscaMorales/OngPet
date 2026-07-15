@@ -42,6 +42,7 @@ export const cadastro = async (userData) => {
 
 export const update = async (id, userData) => {
     try {
+        console.log('chando upasiodne');
         const response = await api.put(`/users/update/${id}`, userData);
         console.log(response);
         return {

@@ -4,7 +4,6 @@ const { formatData } = require('../utils/formatters');
 const {cpfValidator, validateEmail, telefone_validation} = require('../utils/validators');
 const { Op, where } = require('sequelize');
 const {uploadImage} = require('./uploadServices');
-const { avatar } = require('@material-tailwind/react');
 
 
 
@@ -14,7 +13,7 @@ async function authenticate(cpf, password){
         return {
             success: false,
             code: "USER_NOT_FOUND"};
-    }   
+    }
     const valid  = await bcrypt.compare(password, user.password);
     if (!valid) {
         return { 
@@ -72,7 +71,6 @@ async function register({body, file}){
                 message: "Telefone inválido"
             }
         }
-        console.log("========================================", imageUrl);
         const newUser = await User.create({
             fullName: userData.fullName,
             cpf: newCpf,
@@ -127,7 +125,9 @@ async function update(id, userData){
                 message: "Telefone inválido"
             }
         }
-        const newUser = await User.update({
+        const newUser = await User.findByPk(id);
+
+        await newUser.update({
             fullName: userData.fullName,
             cpf: newCpf,
             email: userData.email,
@@ -136,7 +136,7 @@ async function update(id, userData){
             password: userData.password,
             birth_date: new Date(formatData(userData.birth_date)),
             updatedAt: new Date()
-        }, {where: {id:id}});
+            });
         return {success: true, data: newUser};
     } catch (error) {
         console.error(error);
