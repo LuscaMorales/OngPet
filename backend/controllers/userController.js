@@ -31,8 +31,6 @@ async function login(req, res){
 
 async function register(req, res){
     try{
-        const userData = req.file;
-        console.log("==USER DATA== ", userData);
         const result = await userService.register({
             body: req.body,
             file: req.file,
@@ -52,10 +50,12 @@ async function register(req, res){
 
 async function update(req, res){
     try{
+        const userFile = req.file;
         const { id } = req.params;
         const userData = req.body;
         console.log(userData);
-        const result = await userService.update(id, userData);
+        const result = await userService.update(id, userData, req.file);
+
         if(!result.success){
             errorList = ["USER_EXISTS", "INVALID_CPF", "INVALID_EMAIL", "INVALID_PHONE"];
             if(errorList.includes(result.code)){

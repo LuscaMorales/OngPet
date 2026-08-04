@@ -42,9 +42,16 @@ export const cadastro = async (userData) => {
 
 export const update = async (id, userData) => {
     try {
-        console.log('chando upasiodne');
-        const response = await api.put(`/users/update/${id}`, userData);
-        console.log(response);
+        const formData  = new FormData();
+        formData.append("fullName", userData.fullName);
+        formData.append("cpf", userData.cpf);
+        formData.append("email", userData.email);
+        formData.append("phone", userData.phone);
+        formData.append("role", userData.role); 
+        formData.append("password", userData.password);
+        formData.append("birth_date", userData.birth_date);
+        formData.append("avatar", userData.avatar);
+        const response = await apiFD.put(`/users/update/${id}`, formData);
         return {
             success: true,
             data: response.data

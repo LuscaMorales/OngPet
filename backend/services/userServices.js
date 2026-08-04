@@ -92,7 +92,7 @@ async function register({body, file}){
     }
 }
 
-async function update(id, userData){
+async function update(id, userData, file){
     try {
         const existing = await User.findOne({where: {cpf: userData.cpf, [Op.not]: [{ id: id }],},});
         if(existing){
@@ -100,6 +100,17 @@ async function update(id, userData){
                 success: false,
                 code: "USER_EXISTS",
                 message: "Usuário já cadastrado"
+            }
+        }
+        var imageUrl = "";
+        if(file){
+            const uploadResult = await uploadImage(file);
+            imageUrl = uploadResult.url;
+        }else{
+            return {
+                success: false,
+                code: "NO_IMAGE",
+                message: "NO_IMAGEOCMING"
             }
         }
         const newCpf = cpfValidator(userData.cpf);
@@ -135,7 +146,8 @@ async function update(id, userData){
             role: userData.role || "viewer",
             password: userData.password,
             birth_date: new Date(formatData(userData.birth_date)),
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            avatarUrl: imageUrl,
             });
         return {success: true, data: newUser};
     } catch (error) {

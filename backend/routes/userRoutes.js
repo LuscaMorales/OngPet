@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/login', controller.login);
 router.post('/register',upload.single("avatar"),controller.register);
 router.get('/getAll', controller.getAll);
-router.put('/update/:id', controller.update);
+router.put('/update/:id',upload.single("avatar"), controller.update);
 router.delete('/delete/:id', controller.delUser);
 
 

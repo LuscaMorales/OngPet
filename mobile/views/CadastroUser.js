@@ -17,6 +17,7 @@ export default function CadastroUser ({route, navigation})
     const [loading, setLoading] = useState(false);
     const [imageUser, setImageUser] = useState('');
 
+
     const[name,setName] = useState('');
     const[cpf, setCpf] = useState("");
     const[email, setEmail] = useState('');
@@ -29,6 +30,11 @@ export default function CadastroUser ({route, navigation})
 
     useEffect(()=>{
         if(isEditMode){
+            setImageUser({
+                uri:userData.avatarUrl,
+                name:"imageUser.jpg",
+                type:"image/jpg",
+            });
             setName(userData.fullName);
             setCpf(userData.cpf);
             setEmail(userData.email);
@@ -96,7 +102,6 @@ export default function CadastroUser ({route, navigation})
                 }
             }
         } catch (error) {
-            console.log(error);
             console.error('Erro cadastro/edit usuário:', error);
         }
     };      
@@ -116,7 +121,7 @@ export default function CadastroUser ({route, navigation})
         if(!result.canceled){
             setImageUser({
                 uri:result.assets[0].uri,
-                name:result.assets[0].fileName,
+                name:"imageUser.jpg",
                 type:result.assets[0].mimeType,
             });
         }
@@ -131,14 +136,6 @@ export default function CadastroUser ({route, navigation})
                 <View>
                     <Image style={css.images} source={{uri:imageUser.uri}}/>
                     <Button onPress={pickImage}>Pick an image from camera roll</Button>
-                    <input
-                        type="file"
-                        onChange={(e) => {
-                            const file = e.target.files[0];
-                            console.log(file);
-                            setImageUser(file);
-                        }}
-                    />
                 </View>
                 <TextInput style={css.login_input} value={name} placeholder="Nome Completo" onChangeText={text=>setName(text)}/>
                 <TextInputMask style={css.login_input} placeholder="CPF"
