@@ -5,22 +5,32 @@ export const darkTheme = {
   colors: {
     ...MD3DarkTheme.colors,
 
-    // 🎯 verde principal no dark (mais “neon suave”)
-    primary: '#5ED3A6',
+    // Paleta OngPet Dark personalizada:
+    // color1: #287e1c | color2: #1e5e15 | color3: #143f0e | color4: #0a1f07 | color5: #000000
+    primary: '#287e1c',
+    onPrimary: '#FFFFFF',
+    primaryContainer: '#1e5e15',
+    onPrimaryContainer: '#E6F5EF',
 
-    secondary: '#3AAE87',
-    tertiary: '#2E8B6E',
+    secondary: '#1e5e15',
+    onSecondary: '#FFFFFF',
+    secondaryContainer: '#143f0e',
+    onSecondaryContainer: '#D2F0CE',
 
-    // fundo escuro esverdeado (não preto puro)
-    background: '#0F1F1A',
-    surface: '#152A23',
+    tertiary: '#143f0e',
 
-    // texto claro
-    text: '#E6F5EF',
+    background: '#000000',       // .color5 (#000000)
+    surface: '#0a1f07',          // .color4 (#0a1f07)
+    surfaceVariant: '#143f0e',   // .color3 (#143f0e)
 
-    // destaque
-    accent: '#7FFFD4',
+    onBackground: '#FFFFFF',
+    onSurface: '#FFFFFF',
+    onSurfaceVariant: '#A8E39F',
 
-    error: '#FF6B6B',
+    outline: '#287e1c',          // .color1 (#287e1c)
+    outlineVariant: '#1e5e15',   // .color2 (#1e5e15)
+
+    error: '#FF5252',
+    onError: '#FFFFFF',
   },
 };

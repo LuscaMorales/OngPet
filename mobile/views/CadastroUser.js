@@ -1,4 +1,4 @@
-import React, {use, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform, Alert } from "react-native";
 import { css } from "../assets/css/Css";
 import { cadastro, update } from "../services/userServices";
@@ -106,23 +106,56 @@ export default function CadastroUser ({route, navigation})
         }
     };      
 
-    const pickImage = async  () => {
+    const handleSelectImage = () => {
+        Alert.alert(
+            "Foto de Perfil",
+            "Como deseja adicionar a foto de perfil?",
+            [
+                { text: "📷 Tirar Foto", onPress: takePhoto },
+                { text: "🖼️ Escolher da Galeria", onPress: pickFromGallery },
+                { text: "Cancelar", style: "cancel" }
+            ]
+        );
+    };
+
+    const takePhoto = async () => {
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+        if (!permissionResult.granted) {
+            Alert.alert('Permissão necessária', 'É necessário permitir o acesso à câmera para tirar fotos.');
+            return;
+        }
+        const result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ['images'], 
+            quality: 0.7,
+            allowsEditing: true,
+            aspect: [4, 3],
+        });
+        if (!result.canceled) {
+            setImageUser({
+                uri: result.assets[0].uri,
+                name: "imageUser.jpg",
+                type: result.assets[0].mimeType || 'image/jpeg',
+            });
+        }
+    };
+
+    const pickFromGallery = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if(!permissionResult.granted){
-            Alert.alert('Permission required', 'Permission to access the media library is required.');
+        if (!permissionResult.granted) {
+            Alert.alert('Permissão necessária', 'É necessário permitir o acesso à galeria.');
             return;
         }
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'], 
             quality: 0.7,
             allowsEditing: true,
-            aspect: [4,3],
+            aspect: [4, 3],
         });
-        if(!result.canceled){
+        if (!result.canceled) {
             setImageUser({
-                uri:result.assets[0].uri,
-                name:"imageUser.jpg",
-                type:result.assets[0].mimeType,
+                uri: result.assets[0].uri,
+                name: "imageUser.jpg",
+                type: result.assets[0].mimeType || 'image/jpeg',
             });
         }
     };
@@ -135,7 +168,7 @@ export default function CadastroUser ({route, navigation})
             <View style={css.login_form}>
                 <View>
                     <Image style={css.images} source={{uri:imageUser.uri}}/>
-                    <Button onPress={pickImage}>Pick an image from camera roll</Button>
+                    <Button onPress={handleSelectImage}>Adicionar / Alterar Foto</Button>
                 </View>
                 <TextInput style={css.login_input} value={name} placeholder="Nome Completo" onChangeText={text=>setName(text)}/>
                 <TextInputMask style={css.login_input} placeholder="CPF"

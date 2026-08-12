@@ -15,19 +15,26 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.OngPet"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./mobile/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.anonymous.OngPet"
     },
     "web": {
       "favicon": "./mobile/assets/favicon.png"
     },
     "plugins": [
-      ["expo-font"],
+      [
+        "expo-font"
+      ],
       [
         "expo-image-picker",
         {
