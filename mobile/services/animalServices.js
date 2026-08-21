@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api, apiFD } from './api';
 
 
 export const checkAnimal = async (animalId) => {
@@ -13,8 +13,17 @@ export const checkAnimal = async (animalId) => {
 
 export const addAnimal = async (animalData) =>{
     try {
-        const response = await api.post('/animals/cadastroAnimal', animalData);
-        return response.data.data;
+        const formData  = new FormData();
+        formData.append("nome", animalData.nome);
+        formData.append("raca", animalData.raca);
+        formData.append("dataChegada", animalData.dataChegada);
+        formData.append("nascimento", animalData.nascimento);
+        formData.append("image", animalData.image);
+        const response = await apiFD.post('/animals/cadastroAnimal', formData);
+        return {
+            success: true,
+            data: response.data
+        };
     } catch (error) {
         console.error('Error adding animal:', error);
         throw error;

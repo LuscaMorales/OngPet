@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform } from "react-native";
+import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform, Alert } from "react-native";
 import { css } from "../assets/css/Css";
 import { addAnimal } from "../services/animalServices";
+import { Button } from "react-native-paper";
+import * as ImagePicker from 'expo-image-picker';
+
 
 export default function CadastroAnimal ({navigation})
 {
@@ -13,6 +16,8 @@ export default function CadastroAnimal ({navigation})
     const[raca, setRaca] = useState('');
     const[id, setId] = useState('');
     const[display, setDisplay] = useState('none')
+    const[image, setImage] = useState('');
+    
 
     const handleCadastro = async () => {
         const animalData = {
@@ -40,6 +45,61 @@ export default function CadastroAnimal ({navigation})
         }
     };      
 
+
+    const handleSelectImage = () => {
+        Alert.alert(
+            "Foto de Perfil",
+            "Como deseja adicionar a foto de perfil?",
+            [
+                { text: "📷 Tirar Foto", onPress: takePhoto },
+                { text: "🖼️ Escolher da Galeria", onPress: pickFromGallery },
+                { text: "Cancelar", style: "cancel" }
+            ]
+        );
+    };
+
+    const takePhoto = async () => {
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+        if (!permissionResult.granted) {
+            Alert.alert('Permissão necessária', 'É necessário permitir o acesso à câmera para tirar fotos.');
+            return;
+        }
+        const result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ['images'], 
+            quality: 0.7,
+            allowsEditing: true,
+            aspect: [4, 3],
+        });
+        if (!result.canceled) {
+            setImage({
+                uri: result.assets[0].uri,
+                name: "image.jpg",
+                type: result.assets[0].mimeType || 'image/jpeg',
+            });
+        }
+    };
+
+    const pickFromGallery = async () => {
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (!permissionResult.granted) {
+            Alert.alert('Permissão necessária', 'É necessário permitir o acesso à galeria.');
+            return;
+        }
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'], 
+            quality: 0.7,
+            allowsEditing: true,
+            aspect: [4, 3],
+        });
+        if (!result.canceled) {
+            setImage({
+                uri: result.assets[0].uri,
+                name: "image.jpg",
+                type: result.assets[0].mimeType || 'image/jpeg',
+            });
+        }
+    };
+
     return(
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
             <View>
@@ -47,6 +107,10 @@ export default function CadastroAnimal ({navigation})
                 <Text style={css.login_error(display)}> O Id do {titleName} será {id}</Text>
             </View>
             <View style={css.login_form}>
+                <View>
+                    <Image style={css.images} source={{uri:image.uri}}/>
+                    <Button onPress={handleSelectImage}>Adicionar / Alterar Foto</Button>
+                </View>
                 <TextInput style={css.login_input} value={name} placeholder="Nome" onChangeText={text=>setName(text)}/>
                 <TextInput style={css.login_input} value={raca} placeholder="Raça" onChangeText={text=>setRaca(text)}/>
                 <TextInput style={css.login_input} value={nascimento} placeholder="Data de Nascimento" onChangeText={text=>setNascimento(text)}/>

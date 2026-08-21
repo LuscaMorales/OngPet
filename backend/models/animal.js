@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     nome: DataTypes.STRING,
     raca: DataTypes.STRING,
     dataChegada: DataTypes.DATEONLY,
-    nascimento: DataTypes.DATEONLY
+    nascimento: DataTypes.DATEONLY,
+    avatarUrl: {type: DataTypes.STRING, allowNull: true}
   }, {
     sequelize,
     modelName: 'Animal',
