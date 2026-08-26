@@ -3,6 +3,8 @@ const ani = models.Animal;
 const VacAni = models.VacinaAnimal;
 const ProAni = models.ProcedimentoAnimal;
 const { formatData } = require('../utils/formatters');
+const {uploadImage} = require('./uploadServices');
+
 
 async function checkAnimal(id){
     try {
@@ -16,17 +18,30 @@ async function checkAnimal(id){
     }
 }
 
-async function addAnimal(animalData){
+async function addAnimal({body, file}){
   try {
-    let animalCreated = await ani.create({
+    var imageUrl = "";
+    if(file){
+        const uploadResult = await uploadImage(file);
+        imageUrl = uploadResult.url;
+    }else{
+        return {
+            success: false,
+            code: "NO_IMAGE",
+            message: "NO_IMAGEOCMING"
+        }
+    }
+    const animalData = body;
+    const newAnimal = await ani.create({
     nome:animalData.nome,
     raca:animalData.raca,
     dataChegada: new Date(formatData(animalData.dataChegada)),
     nascimento: new Date(formatData(animalData.nascimento)),
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    avatarUrl: imageUrl,
     });
-    return {sucess: true, data: animalCreated};
+    return {sucess: true, data: newAnimal};
   }catch (error) {
     return {sucess: false, message: 'Error adding animal' };
   }

@@ -25,7 +25,7 @@
     "expo-image-picker": "~17.0.11",
     "expo-status-bar": "~3.0.9",
     "express": "^5.2.1",
-    "multer": "^2.1.1",
+    "multer": "^2.2.0",
     "mysql2": "^3.16.0",
     "react": "^19.1.0",
     "react-dom": "19.1.0",

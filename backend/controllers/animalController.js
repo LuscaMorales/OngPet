@@ -15,8 +15,12 @@ async function check(req, res){
 
 async function cadastro(req, res){
     try{
-        const animalData = req.body;
-        const result = await animalServices.addAnimal(animalData);
+
+        console.log(req);
+        const result = await animalServices.addAnimal({
+            body: req.body,
+            file: req.file,
+        });
         return res.status(201).json(result);
     }catch (error){
         return res.status(500).json({error: 'Internal server error'});

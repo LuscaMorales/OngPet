@@ -13,6 +13,8 @@ export const checkAnimal = async (animalId) => {
 
 export const addAnimal = async (animalData) =>{
     try {
+
+        console.log(animalData);
         const formData  = new FormData();
         formData.append("nome", animalData.nome);
         formData.append("raca", animalData.raca);

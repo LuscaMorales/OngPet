@@ -20,11 +20,13 @@ export default function CadastroAnimal ({navigation})
     
 
     const handleCadastro = async () => {
+
         const animalData = {
             nome: name,
             raca: raca,
             dataChegada: chegada,
-            nascimento: nascimento
+            nascimento: nascimento,
+            imageUri: image
         };
         if (!animalData.nome || !animalData.raca) {
             alert('Nome e raça são obrigatórios');
