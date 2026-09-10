@@ -11,15 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       ProcedimentoAnimal.belongsTo(models.Animal,{
+        foreignKey:"idAnimal"
+      });
+      ProcedimentoAnimal.belongsTo(models.Procedimento,{
         foreignKey:"idProcedimento"
       });
-     // ProcedimentoAnimal.hasOne(models.Procedimento);
     }
   }
   ProcedimentoAnimal.init({
     data: DataTypes.DATEONLY,
     idProcedimento: DataTypes.INTEGER,
-    idAnimal: DataTypes.INTEGER
+    idAnimal: DataTypes.INTEGER,
+    observacao: DataTypes.TEXT,
   }, {
     sequelize,
     modelName: 'ProcedimentoAnimal',
