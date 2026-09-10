@@ -1,72 +1,55 @@
 import React, {useEffect, useState} from "react";
-import {KeyboardAvoidingView, Text, TextInput, View, TouchableOpacity, Image, Platform, ScrollView } from "react-native";
+import {KeyboardAvoidingView, TextInput, View, TouchableOpacity, Image, Platform, ScrollView } from "react-native";
 import { css } from "../assets/css/Css";
+import { cadastroUser } from "../services/userServices";
+import { useTheme, Button, Text  } from 'react-native-paper';
+
+
 
 export default function AreaRestrita ({navigation})
 {
-
-    const[user, setUser] = useState(null);
-    const[password, setPassword] = useState(null);
-    const[power, setPower] = useState(null);
-    const[login, setLogin] = useState(null);
-
-    //envio form de login
-    async function sendForm2(){
-        let response=await fetch('http://localhost:3000/cadastroUser',{
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: user,
-                password: password,
-                power: power,
-                createdAt: new Date(),
-                updatedAt: new Date()
-            }),
-          });
-        }
-    
+    const theme = useTheme();
 
     return(
         <ScrollView>
-        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={[css.container, css.darkbg]}>
-            <View>
-                <Text style={css.HeaderAR}>Cadastro de Usuarios</Text>
-                <TextInput style={css.login_input} placeholder="Username" onChangeText={text=>setUser(text)}/>
-                <TextInput style={css.login_input} placeholder="Senha" onChangeText={text=>setPassword(text)}/>
-                <TextInput style={css.login_input} placeholder="Poder" onChangeText={text=>setPower(text)}/>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>sendForm2()}>
+            <View style={{ backgroundColor: theme.colors.background}}>
+                <View>
+                    <Text>Cadastro de Usuarios</Text>
+                    <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroUser')}>
+                        <Text style={css.login_buttomText}>Enviar</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <Text>Lista de Usuarios</Text>
+                    <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('UsersList')}>
                     <Text style={css.login_buttomText}>Enviar</Text>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <Text style={css.HeaderAR}>Cadastro de Animais</Text>
+                    <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroAnimal')}>
+                        <Text style={css.login_buttomText}>Entrar</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                <Text style={css.HeaderAR}>Consulta de Animais</Text>
+                    <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('ConsultaAnimal')}>
+                        <Text style={css.login_buttomText}>Entrar</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                <Text style={css.HeaderAR}>Cadastro de Consulta</Text>
+                    <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroProced')}>
+                        <Text style={css.login_buttomText}>Entrar</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                <Text style={css.HeaderAR}>Cadastro de vacina</Text>
+                    <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroVacina')}>
+                        <Text style={css.login_buttomText}>Entrar</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-                <Text style={css.HeaderAR}>Cadastro de Animais</Text>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroAnimal')}>
-                    <Text style={css.login_buttomText}>Entrar</Text>
-                </TouchableOpacity>
-            <View>
-            <Text style={css.HeaderAR}>Consulta de Animais</Text>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('ConsultaAnimal')}>
-                    <Text style={css.login_buttomText}>Entrar</Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-            <Text style={css.HeaderAR}>Cadastro de Consulta</Text>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroProced')}>
-                    <Text style={css.login_buttomText}>Entrar</Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-            <Text style={css.HeaderAR}>Cadastro de vacina</Text>
-                <TouchableOpacity style={css.login_buttom} onPress={()=>navigation.navigate('CadastroVacina')}>
-                    <Text style={css.login_buttomText}>Entrar</Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-
-            </View>
-        </KeyboardAvoidingView>
         </ScrollView>
     )
 }

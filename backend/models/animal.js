@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Animal extends Model {
     /**
@@ -11,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Animal.hasMany(models.ProcedimentoAnimal,{
-        foreignKey:"idProcedimento"
+        foreignKey:"idAnimal"
       });
       Animal.hasMany(models.VacinaAnimal,{
         foreignKey:"idAnimal"
@@ -22,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     nome: DataTypes.STRING,
     raca: DataTypes.STRING,
     dataChegada: DataTypes.DATEONLY,
-    nascimento: DataTypes.DATEONLY
+    nascimento: DataTypes.DATEONLY,
+    avatarUrl: {type: DataTypes.STRING, allowNull: true}
   }, {
     sequelize,
     modelName: 'Animal',

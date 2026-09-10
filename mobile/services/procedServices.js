@@ -1,22 +1,15 @@
 import { api } from './api';
 
 
-export const getAnimal = async (animalId) => {
+export const addProcedm = async (procedData) =>{
     try {
-        const response = await api.post('/ConsultaAnimal', { IDAnimal: animalId });
+        const response = await api.post('/procedimentos/cadastro', procedData);
         return response.data;
     } catch (error) {
-        console.error('Error fetching animal data:', error);
-        throw error;
-    }
-};
-
-export const addAnimal = async (animalData) =>{
-    try {
-        const response = await api.post('/cadastroAnimal', animalData);
-        return response.data;
-    } catch (error) {
-        console.error('Error adding animal:', error);
+        if(error.response) {
+            return error.response.data
+        }
+        console.error('Error adding procedimento:', error.code);
         throw error;
     } 
 };
